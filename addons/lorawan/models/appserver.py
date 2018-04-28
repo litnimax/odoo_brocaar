@@ -1,1 +1,300 @@
-# must contain appserver models
+from odoo import models, fields, api
+
+
+# TODO check all fields in models, because problems may arrive with numeric types
+class Application(models.Model):
+    _name = 'lorawan.application'
+    _table = 'application'
+
+    name = fields.Char(required=True)
+    description = fields.Text(required=True)
+    # TODO device_profile_id must be defined as indicated below and must have uuid type
+    # service_profile_id = fields.Many2one(comodel_name='lorawan.service_profile')
+    service_profile_id = fields.Char()
+    payload_codec = fields.Text(required=True, default='')
+    payload_encoder_script = fields.Text(required=True, default='')
+    payload_decoder_script = fields.Text(required=True, default='')
+
+    _sql_constraints = [
+        ('name_unique',
+         'UNIQUE(name)',
+         "The name must be unique"),
+    ]
+
+class Node(models.Model):
+    _name = 'lorawan.node'
+    _table = 'node'
+
+    name = fields.Char(size=100, required=True, default='')
+    description = fields.Text(required=True)
+    application_id = fields.Many2one(required=True, comodel_name='lorawan.application', ondelete='cascade')
+    # TODO dev_eui must be primary key
+    dev_eui = fields.Binary()
+    app_eui = fields.Binary()
+    is_abp = fields.Boolean(required=True, default=False)
+    app_key = fields.Binary(required=True)
+    used_dev_nonces = fields.Binary()
+    rx_delay = fields.Integer(required=True, default=0)
+    rx1_dr_offset = fields.Integer(required=True, default=0)
+    relax_fcnt = fields.Boolean(required=True, default=False)
+    is_class_c = fields.Boolean(required=True, default=False)
+    app_s_key = fields.Binary(required=True, default=b'\\x00000000000000000000000000000000')
+    nwk_s_key = fields.Binary(required=True, default=b'\\x00000000000000000000000000000000')
+    dev_addr = fields.Binary(required=True, default=b'\\x00000000')
+    adr_interval = fields.Integer(required=True, default=0)
+    installation_margin = fields.Float(digits=(5,2), required=True, default=0)
+    use_application_settings = fields.Boolean(required=True, default=False)
+
+    _sql_constraints = [
+        ('name_unique',
+         'UNIQUE(name)',
+         "The name must be unique"),
+        ('application_id_unique',
+         'UNIQUE(application_id)',
+         "The application_id must be unique"),
+    ]
+
+class DownlinkQueue(models.Model):
+    _name = 'lorawan.downlink_queue'
+    _table = 'downlink_queue'
+
+    reference = fields.Char(size=100, required=True)
+    # TODO dev_eui must be defined as indicated below
+    # dev_eui = fields.Many2one(required=True, comodel_name='lorawan.node', ondelete='cascade')
+    dev_eui = fields.Char()
+    confirmed = fields.Boolean(required=True, default=False)
+    pending = fields.Boolean(required=True, default=False)
+    fport = fields.Integer(required=True)
+    data = fields.Binary(required=True)
+
+class User(models.Model):
+    _name = 'lorawan.user'
+    _table = 'user'
+
+    created_at = fields.Datetime(required=True)
+    updated_at = fields.Datetime(required=True)
+    username = fields.Char(size=100, required=True)
+    password_hash = fields.Char(size=200, required=True)
+    session_ttl = fields.Integer(required=True)
+    is_active = fields.Boolean(required=True)
+    is_admin = fields.Boolean(required=True)
+    email = fields.Text(required=True, default='')
+    note = fields.Text(required=True, default='')
+
+class ApplicationUser(models.Model):
+    _name = 'lorawan.application_user'
+    _table = 'application_user'
+
+    created_at = fields.Datetime(required=True)
+    updated_at = fields.Datetime(required=True)
+    user_id = fields.Many2one(required=True, comodel_name='lorawan.user', ondelete='cascade')
+    application_id = fields.Many2one(required=True, comodel_name='lorawan.application', ondelete='cascade')
+    is_admin = fields.Boolean(required=True)
+
+    _sql_constraints = [
+        ('user_id_unique',
+         'UNIQUE(user_id)',
+         "The user_id must be unique"),
+        ('application_id_unique',
+         'UNIQUE(application_id)',
+         "The application_id must be unique"),
+    ]
+
+class Organization(models.Model):
+    _name = 'lorawan.organization'
+    _table = 'organization'
+
+    created_at = fields.Datetime(required=True)
+    updated_at = fields.Datetime(required=True)
+    name = fields.Char(size=100, required=True)
+    display_name = fields.Char(size=100, required=True)
+    can_have_gateways = fields.Boolean(required=True)
+
+class OrganizationUser(models.Model):
+    _name = 'lorawan.organization_user'
+    _table = 'organization_user'
+
+    created_at = fields.Datetime(required=True)
+    updated_at = fields.Datetime(required=True)
+    user_id = fields.Many2one(required=True, comodel_name='lorawan.user', ondelete='cascade')
+    organization_id = fields.Many2one(required=True, comodel_name='lorawan.organization', ondelete='cascade')
+
+    _sql_constraints = [
+        ('user_id_unique',
+         'UNIQUE(user_id)',
+         "The user_id must be unique"),
+        ('organization_id_unique',
+         'UNIQUE(organization_id)',
+         "The organization_id must be unique"),
+    ]
+
+class Integration(models.Model):
+    _name = 'lorawan.integration'
+    _table = 'integration'
+
+    created_at = fields.Datetime(required=True)
+    updated_at = fields.Datetime(required=True)
+    application_id = fields.Many2one(required=True, comodel_name='lorawan.application', ondelete='cascade')
+    kind = fields.Char(size=20, required=True)
+    # TODO settings must have jsonb type
+    settings = fields.Text()
+
+    _sql_constraints = [
+        ('kind_unique',
+         'UNIQUE(kind)',
+         "The kind must be unique"),
+        ('application_id_unique',
+         'UNIQUE(application_id)',
+         "The application_id must be unique"),
+    ]
+
+class GatewayPing(models.Model):
+    _name = 'lorawan.gateway_ping'
+    _table = 'gateway_ping'
+
+    created_at = fields.Datetime(required=True)
+    # TODO gateway_mac must be defined as indicated below
+    # gateway_mac = fields.Many2one(required=True, comodel_name='lorawan.gateway', ondelete='cascade')
+    gateway_mac = fields.Char()
+    frequency = fields.Integer(required=True)
+    dr = fields.Integer(required=True)
+
+class GatewayPingRx(models.Model):
+    _name = 'lorawan.gateway_ping_rx'
+    _table = 'gateway_ping_rx'
+
+    created_at = fields.Datetime(required=True)
+    ping_id = fields.Many2one(required=True, comodel_name='lorawan.gateway_ping', ondelete='cascade')
+    # TODO gateway_mac must be defined as indicated below
+    # gateway_mac = fields.Many2one(required=True, comodel_name='lorawan.gateway', ondelete='cascade')
+    gateway_mac = fields.Char()
+    received_at = fields.Datetime(required=True)
+    rssi = fields.Integer(required=True)
+    lora_snr = fields.Float(digits=(3,1), required=True)
+    # TODO location field must be point type
+    location = fields.Char()
+    altitude = fields.Float()
+
+class NetworkServer(models.Model):
+    _name = 'lorawan.network_server'
+    _table = 'network_server'
+
+    created_at = fields.Datetime(required=True)
+    updated_at = fields.Datetime(required=True)
+    name = fields.Char(size=100, required=True)
+    server = fields.Char(size=255, required=True)
+    ca_cert = fields.Text(required=True, default='')
+    tls_cert = fields.Text(required=True, default='')
+    tls_key = fields.Text(required=True, default='')
+    routing_profile_ca_cert = fields.Text(required=True, default='')
+    routing_profile_tls_cert = fields.Text(required=True, default='')
+    routing_profile_tls_key = fields.Text(required=True, default='')
+    gateway_discovery_enabled = fields.Boolean(required=True, default=False)
+    gateway_discovery_interval = fields.Integer(required=True, default=0)
+    gateway_discovery_tx_frequency = fields.Integer(required=True, default=0)
+    gateway_discovery_dr = fields.Integer(required=True, default=0)
+
+# class ServiceProfile(models.Model):
+#     _name = 'lorawan.service_profile'
+#     _table = 'service_profile'
+#
+#     # TODO service_profile_id must be primary key with uuid type
+#     service_profile_id = fields.Char()
+#     organization_id = fields.Many2one(required=True, comodel_name='lorawan.organization')
+#     network_server_id = fields.Many2one(required=True, comodel_name='lorawan.network_server')
+#     created_at = fields.Datetime(required=True)
+#     updated_at = fields.Datetime(required=True)
+#     name = fields.Char(size=100, required=True)
+
+# class DeviceProfile(models.Model):
+#     _name = 'lorawan.device_profile'
+#     _table = 'device_profile'
+#
+#     # TODO device_profile_id must be primary key with uuid type
+#     device_profile_id = fields.Char()
+#     network_server_id = fields.Many2one(required=True, comodel_name='lorawan.network_server')
+#     organization_id  = fields.Many2one(required=True, comodel_name='lorawan.organization')
+#     created_at = fields.Datetime(required=True)
+#     updated_at = fields.Datetime(required=True)
+#     name = fields.Char(size=100, required=True)
+
+# class Device(models.Model):
+#     _name = 'lorawan.device'
+#     _table = 'device'
+#
+#     # TODO dev_eui must be primary key
+#     dev_eui = fields.Binary()
+#     created_at = fields.Datetime(required=True)
+#     updated_at = fields.Datetime(required=True)
+#     application_id = fields.Many2one(required=True, comodel_name='lorawan.application', ondelete='cascade')
+#     # TODO device_profile_id must be defined as indicated below
+#     # device_profile_id = fields.Many2one(required=True, comodel_name='lorawan.device_profile', ondelete='cascade')
+#     device_profile_id = fields.Char()
+#     name = fields.Char(size=100, required=True)
+#     description = fields.Text(required=True)
+#     last_seen_at = fields.Datetime(required=True)
+#     device_status_battery = fields.Integer(required=True)
+#     device_status_margin = fields.Integer(required=True)
+
+class DeviceKeys(models.Model):
+    _name = 'lorawan.device_keys'
+    _table = 'device_keys'
+
+    # TODO dev_eui must be primary key and defined as indicated below
+    # dev_eui = fields.Many2one(required=True, comodel_name='lorawan.device', ondelete='cascade')
+    dev_eui = fields.Binary()
+    created_at = fields.Datetime(required=True)
+    updated_at = fields.Datetime(required=True)
+    app_key = fields.Binary(required=True)
+    join_nonce = fields.Integer(required=True)
+
+# class DeviceActivation(models.Model):
+#     _name = 'lorawan.device_activation'
+#     _table = 'device_activation'
+#
+#     created_at = fields.Datetime(required=True)
+#     # TODO dev_eui must be primary key and defined as indicated below
+#     # dev_eui = fields.Many2one(required=True, comodel_name='lorawan.device', ondelete='cascade')
+#     dev_eui = fields.Binary()
+#     dev_addr = fields.Binary(required=True)
+#     app_s_key = fields.Binary(required=True)
+#     nwk_s_key = fields.Binary(required=True)
+
+# class DeviceQueue(models.Model):
+#     _name = 'lorawan.device_queue'
+#     _table = 'device_queue'
+#
+#     created_at = fields.Datetime(required=True)
+#     updated_at = fields.Datetime(required=True)
+#     reference = fields.Char(size=100, required=True)
+#     # TODO dev_eui must be defined as indicated below
+#     # dev_eui = fields.Many2one(comodel_name='lorawan.device', ondelete='cascade')
+#     dev_eui = fields.Char()
+#     confirmed = fields.Boolean(required=True, default=False)
+#     pending = fields.Boolean(required=True, default=False)
+#     fport = fields.Integer(required=True)
+#     data = fields.Binary(required=True)
+
+class DeviceQueueMapping(models.Model):
+    _name = 'lorawan.device_queue_mapping'
+    _table = 'device_queue_mapping'
+
+    created_at = fields.Datetime(required=True)
+    reference = fields.Text(required=True)
+    # TODO dev_eui must be defined as indicated below
+    # dev_eui = fields.Many2one(comodel_name='lorawan.device', ondelete='cascade')
+    dev_eui = fields.Char()
+    f_cnt = fields.Integer(required=True)
+
+# class GatewayProfile(models.Model):
+#     _name = 'lorawan.gateway_profile'
+#     _table = 'gateway_profile'
+#
+#     # TODO gateway_profile_id must be primary key with uuid type
+#     gateway_profile_id = fields.Char()
+#     network_server_id = fields.Many2one(required=True, comodel_name='lorawan.network_server')
+#     created_at = fields.Datetime(required=True)
+#     updated_at = fields.Datetime(required=True)
+#     name = fields.Char(size=100, required=True)
+
+

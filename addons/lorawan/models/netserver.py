@@ -20,6 +20,10 @@ class Gateway(models.Model):
     # TODO gateway_profile_id must be defined as indicated below, in migrations file is not specified ondelete rule
     # gateway_profile_id = fields.Many2one(comodel_name='lorawan.gateway_profile')
     gateway_profile_id = fields.Char()
+    ping = fields.Boolean(required=True, default=False)
+    last_ping_id = fields.Many2one(comodel_name='lorawan.gateway_ping', ondelete='set null')
+    last_ping_sent_at = fields.Datetime(required=True)
+    network_server_id = fields.Many2one(comodel_name='lorawan.network_server', ondelete='set null')
 
     _sql_constraints = [
         ('name_unique',
@@ -103,10 +107,13 @@ class DeviceProfile(models.Model):
     _name = 'lorawan.device_profile'
     _table = 'device_profile'
 
+    # This fields coincide with fields from appserver-->start
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
     # TODO device_profile_id must be primary key with uuid type
     device_profile_id = fields.Char()
+    # This fields coincide with fields from appserver-->end
+
     supports_class_b = fields.Boolean(required=True)
     class_b_timeout = fields.Integer(required=True)
     ping_slot_period = fields.Integer(required=True)
@@ -127,14 +134,23 @@ class DeviceProfile(models.Model):
     rf_region = fields.Char(size=20, required=True)
     supports_32bit_fcnt = fields.Boolean(required=True)
 
+    # This fields are from appserver-->start
+    network_server_id = fields.Many2one(required=True, comodel_name='lorawan.network_server')
+    organization_id = fields.Many2one(required=True, comodel_name='lorawan.organization')
+    name = fields.Char(size=100, required=True)
+    # This fields are from appserver-->end
+
 class ServiceProfile(models.Model):
     _name = 'lorawan.service_profile'
     _table = 'service_profile'
 
+    # This fields coincide with fields from appserver-->start
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
     # TODO device_profile_id must be primary key with uuid type
     service_profile_id = fields.Char()
+    # This fields coincide with fields from appserver-->end
+
     ul_rate = fields.Integer(required=True)
     ul_bucket_size = fields.Integer(required=True)
     ul_rate_policy = fields.Char(size=4, required=True)
@@ -155,6 +171,12 @@ class ServiceProfile(models.Model):
     target_per = fields.Integer(required=True)
     min_gw_diversity = fields.Integer(required=True)
 
+    # This fields are from appserver-->start
+    organization_id = fields.Many2one(required=True, comodel_name='lorawan.organization')
+    network_server_id = fields.Many2one(required=True, comodel_name='lorawan.network_server')
+    name = fields.Char(size=100, required=True)
+    # This fields are from appserver-->end
+
 class RoutingProfile(models.Model):
     _name = 'lorawan.routing_profile'
     _table = 'routing_profile'
@@ -172,6 +194,7 @@ class Device(models.Model):
     _name = 'lorawan.device'
     _table = 'device'
 
+    # This fields coincide with fields from appserver-->start
     # TODO dev_eui must be primary key
     dev_eui = fields.Binary()
     created_at = fields.Datetime(required=True)
@@ -181,51 +204,87 @@ class Device(models.Model):
     # service_profile_id = fields.Many2one(required=True, comodel_name='lorawan.service_profile', ondelete='cascade')
     # routing_profile_id = fields.Many2one(required=True, comodel_name='lorawan.routing_profile', ondelete='cascade')
     device_profile_id = fields.Char()
+    # This fields coincide with fields from appserver-->end
+
     service_profile_id = fields.Char()
     routing_profile_id = fields.Char()
-    skip_fcnt_check = fields.Boolean(required=True)
+    skip_fcnt_check = fields.Boolean(required=True, default=False)
+
+    # This fields are from appserver-->start
+    application_id = fields.Many2one(required=True, comodel_name='lorawan.application', ondelete='cascade')
+    name = fields.Char(size=100, required=True)
+    description = fields.Text(required=True)
+    last_seen_at = fields.Datetime(required=True)
+    device_status_battery = fields.Integer(required=True)
+    device_status_margin = fields.Integer(required=True)
+    # This fields are from appserver-->end
 
 class DeviceActivation(models.Model):
     _name = 'lorawan.device_activation'
     _table = 'device_activation'
 
+    # This fields coincide with fields from appserver-->start
     created_at = fields.Datetime(required=True)
     # TODO dev_eui must bedefined as indicated below
     # dev_eui = fields.Many2one(required=True, comodel_name='lorawan.device', ondelete='cascade')
     dev_eui = fields.Char()
-    join_eui = fields.Binary(required=True)
     dev_addr = fields.Binary(required=True)
     nwk_s_key = fields.Binary(required=True)
+    # This fields coincide with fields from appserver-->end
+
+    join_eui = fields.Binary(required=True)
     dev_nonce = fields.Binary(required=True)
+
+    # This fields are from appserver-->start
+    app_s_key = fields.Binary(required=True)
+    # This fields are from appserver-->end
 
 class DeviceQueue(models.Model):
     _name = 'lorawan.device_queue'
     _table = 'device_queue'
 
+    # This fields coincide with fields from appserver-->start
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
     # TODO dev_eui must be defined as indicated below
     # dev_eui = fields.Many2one(comodel_name='lorawan.device', ondelete='cascade')
     dev_eui = fields.Char()
+    confirmed = fields.Boolean(required=True)
+    # This fields coincide with fields from appserver-->end
+
     frm_payload = fields.Binary()
     f_cnt = fields.Integer(required=True)
     f_port = fields.Integer(required=True)
-    confirmed = fields.Boolean(required=True)
     is_pending = fields.Boolean(required=True)
     # TODO emit_at_time_since_gps_epoch must be bigint
     emit_at_time_since_gps_epoch = fields.Integer()
     timeout_after = fields.Datetime(required=True)
 
+    # This fields are from appserver-->start
+    reference = fields.Char(size=100, required=True)
+    pending = fields.Boolean(required=True, default=False)
+    fport = fields.Integer(required=True)
+    data = fields.Binary(required=True)
+    # This fields are from appserver-->end
+
+
 class GatewayProfile(models.Model):
     _name = 'lorawan.gateway_profile'
     _table = 'gateway_profile'
 
+    # This fields coincide with fields from appserver-->start
     # TODO gateway_profile_id must be primary key with uuid type
     gateway_profile_id = fields.Char()
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
+    # This fields coincide with fields from appserver-->end
     # TODO channels must be with type smallint
     channels = fields.Integer(required=True)
+
+    # This fields are from appserver-->start
+    network_server_id = fields.Many2one(required=True, comodel_name='lorawan.network_server')
+    name = fields.Char(size=100, required=True)
+    # This fields are from appserver-->end
 
 class GatewayProfileExtraChannel(models.Model):
     _name = 'gateway.gateway_profile_extra_channel'
