@@ -3,11 +3,15 @@ version: '3'
 services:
   loraserver:
     image: loraserver/loraserver:latest
+    depends_on:
+      - odoo
     volumes:
       - ./configuration/loraserver:/etc/loraserver
 
   appserver:
     image: loraserver/lora-app-server:latest
+    depends_on:
+      - loraserver
     ports:
       - 8080:8080
     volumes:
@@ -50,8 +54,8 @@ services:
       - 8069:8069
     environment:
       - HOST=postgresql
-      - USER=loraserver_as
-      - PASSWORD=loraserver_as
+      - USER=lorawan
+      - PASSWORD=lorawan
     volumes:
       - "./addons/lorawan/:/mnt/extra-addons/lorawan/"
-    command: ["odoo", "--workers=0", "--db-filter=loraserver_as", "--database=loraserver_as", "--log-level=debug"]
+    command: ["odoo", "--workers=0", "--db-filter=test", "--database=test", "--log-level=debug"]

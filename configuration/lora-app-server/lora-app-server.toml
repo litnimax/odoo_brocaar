@@ -39,7 +39,7 @@ password_hash_iterations=100000
 # * require - Always SSL (skip verification)
 # * verify-ca - Always SSL (verify that the certificate presented by the server was signed by a trusted CA)
 # * verify-full - Always SSL (verify that the certification presented by the server was signed by a trusted CA and the server host name matches the one in the certificate)
-dsn="postgres://loraserver_as:loraserver_as@postgresql/loraserver_as?sslmode=disable"
+dsn="postgres://lorawan:lorawan@postgresql/test?sslmode=disable"
 
 # Automatically apply database migrations.
 #
@@ -48,7 +48,7 @@ dsn="postgres://loraserver_as:loraserver_as@postgresql/loraserver_as?sslmode=dis
 # or let LoRa App Server migrate to the latest state automatically, by using
 # this setting. Make sure that you always make a backup when upgrading Lora
 # App Server and / or applying migrations.
-automigrate=true
+automigrate=false
 
 
 # Redis settings

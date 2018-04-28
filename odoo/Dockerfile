@@ -14,4 +14,4 @@ COPY addons/lorawan/ /mnt/extra-addons/lorawan/
 
 ENTRYPOINT ["/entrypoint.sh"]
 
-CMD ["odoo", "--workers=0", "--db-filter=loraserver_as", "--database=loraserver_as", "--log-level=debug_sql"]
+CMD ["odoo", "--workers=0", "--db-filter=test", "--database=test", "--log-level=debug_sql"]
