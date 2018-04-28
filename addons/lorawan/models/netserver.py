@@ -4,6 +4,7 @@ from odoo import models, fields, api
 # TODO check all fields in models, because problems may arrive with numeric types
 class Gateway(models.Model):
     _name = 'lorawan.gateway'
+    _table = 'gateway'
 
     mac = fields.Binary()
     name = fields.Char(size=100, required=True)
@@ -15,7 +16,7 @@ class Gateway(models.Model):
     # TODO location field must be point type
     location = fields.Char(required=True, default='(0,0)')
     altitude = fields.Float(required=True, default=0)
-    channel_configuration_id = fields.Many2one(required=True, comodel_name='lorawan.gateway', ondelete='set null')
+    channel_configuration_id = fields.Many2one(required=True, comodel_name='lorawan.channel_configuration', ondelete='set null')
     # TODO gateway_profile_id must be defined as indicated below, in migrations file is not specified ondelete rule
     # gateway_profile_id = fields.Many2one(comodel_name='lorawan.gateway_profile')
     gateway_profile_id = fields.Char()
@@ -32,6 +33,7 @@ class Gateway(models.Model):
 
 class GatewayStats(models.Model):
     _name = 'lorawan.gateway_stats'
+    _table = 'gateway_stats'
 
     mac = fields.Many2one(required=True, comodel_name='lorawan.gateway', ondelete='cascade')
     timestamp = fields.Datetime(required=True)
@@ -56,6 +58,7 @@ class GatewayStats(models.Model):
 
 class FrameLog(models.Model):
     _name = 'lorawan.frame_log'
+    _table = 'frame_log'
 
     created_at = fields.Datetime(required=True)
     dev_eui = fields.Binary(required=True)
@@ -67,6 +70,7 @@ class FrameLog(models.Model):
 
 class ChannelConfiguration(models.Model):
     _name = 'lorawan.channel_configuration'
+    _table = 'channel_configuration'
 
     name = fields.Char(size=100, required=True)
     created_at = fields.Datetime(required=True)
@@ -83,6 +87,7 @@ class ChannelConfiguration(models.Model):
 
 class ExtraChannel(models.Model):
     _name = 'lorawan.extra_channel'
+    _table = 'extra_channel'
 
     channel_configuration_id = fields.Many2one(required=True, comodel_name='lorawan.channel_configuration', ondelete='cascade')
     created_at = fields.Datetime(required=True)
@@ -96,6 +101,7 @@ class ExtraChannel(models.Model):
 
 class DeviceProfile(models.Model):
     _name = 'lorawan.device_profile'
+    _table = 'device_profile'
 
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
@@ -123,6 +129,7 @@ class DeviceProfile(models.Model):
 
 class ServiceProfile(models.Model):
     _name = 'lorawan.service_profile'
+    _table = 'service_profile'
 
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
@@ -150,6 +157,7 @@ class ServiceProfile(models.Model):
 
 class RoutingProfile(models.Model):
     _name = 'lorawan.routing_profile'
+    _table = 'routing_profile'
 
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
@@ -162,6 +170,7 @@ class RoutingProfile(models.Model):
 
 class Device(models.Model):
     _name = 'lorawan.device'
+    _table = 'device'
 
     # TODO dev_eui must be primary key
     dev_eui = fields.Binary()
@@ -178,6 +187,7 @@ class Device(models.Model):
 
 class DeviceActivation(models.Model):
     _name = 'lorawan.device_activation'
+    _table = 'device_activation'
 
     created_at = fields.Datetime(required=True)
     # TODO dev_eui must bedefined as indicated below
@@ -190,6 +200,7 @@ class DeviceActivation(models.Model):
 
 class DeviceQueue(models.Model):
     _name = 'lorawan.device_queue'
+    _table = 'device_queue'
 
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
@@ -207,6 +218,7 @@ class DeviceQueue(models.Model):
 
 class GatewayProfile(models.Model):
     _name = 'lorawan.gateway_profile'
+    _table = 'gateway_profile'
 
     # TODO gateway_profile_id must be primary key with uuid type
     gateway_profile_id = fields.Char()
@@ -217,6 +229,7 @@ class GatewayProfile(models.Model):
 
 class GatewayProfileExtraChannel(models.Model):
     _name = 'gateway.gateway_profile_extra_channel'
+    _table = 'gateway_profile_extra_channel'
 
     # TODO gateway_profile_id must be defined as indicated below
     # gateway_profile_id = fields.Many2one(required=True, comodel_name='lorawan.gateway_profile', ondelete='cascade')
