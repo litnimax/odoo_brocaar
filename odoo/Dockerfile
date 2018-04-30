@@ -10,8 +10,9 @@ RUN curl -o dockerize-linux-amd64-v0.6.0.tar.gz https://github.com/jwilder/docke
 COPY odoo/bin/wait_postgres.sh /usr/local/bin/
 COPY odoo/bin/entrypoint.sh /entrypoint.sh
 
-COPY addons/lorawan/ /mnt/extra-addons/lorawan/
+COPY addons/appserver/ /mnt/extra-addons/appserver/
+COPY addons/netserver/ /mnt/extra-addons/netserver/
 
 ENTRYPOINT ["/entrypoint.sh"]
 
-CMD ["odoo", "--workers=0", "--db-filter=test", "--database=test", "--log-level=debug_sql"]
+CMD ["odoo", "--workers=0", "--log-level=debug_sql"]

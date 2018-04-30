@@ -4,7 +4,8 @@ services:
   loraserver:
     image: loraserver/loraserver:latest
     depends_on:
-      - odoo
+      - odoo_ns
+      - odoo_as
     volumes:
       - ./configuration/loraserver:/etc/loraserver
 
@@ -44,7 +45,7 @@ services:
     ports:
       - 1883:1883
 
-  odoo:
+  odoo_as:
     build:
       context: .
       dockerfile: odoo/Dockerfile
@@ -54,8 +55,24 @@ services:
       - 8069:8069
     environment:
       - HOST=postgresql
-      - USER=lorawan
-      - PASSWORD=lorawan
+      - USER=loraserver_as
+      - PASSWORD=loraserver_as
     volumes:
-      - "./addons/lorawan/:/mnt/extra-addons/lorawan/"
-    command: ["odoo", "--workers=0", "--db-filter=test", "--database=test", "--log-level=debug"]
+      - "./addons/appserver/:/mnt/extra-addons/appserver/"
+    command: ["odoo", "--workers=0", "--db-filter=loraserver_as", "--database=loraserver_as", "--log-level=debug"]
+
+  odoo_ns:
+    build:
+      context: .
+      dockerfile: odoo/Dockerfile
+    depends_on:
+      - postgresql
+    ports:
+      - 8070:8069
+    environment:
+      - HOST=postgresql
+      - USER=loraserver_ns
+      - PASSWORD=loraserver_ns
+    volumes:
+      - "./addons/netserver/:/mnt/extra-addons/netserver/"
+    command: ["odoo", "--workers=0", "--db-filter=loraserver_ns", "--database=loraserver_ns", "--log-level=debug"]
