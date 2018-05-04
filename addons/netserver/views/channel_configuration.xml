@@ -53,7 +53,7 @@
             </field>
         </record>
 
-        <!--Gateway-->
+        <!--Channel Configuration-->
         <record model="ir.actions.act_window" id="channel_configuration_list_action">
             <field name="name">Channel Configuration</field>
             <field name="res_model">lorawan.channel_configuration</field>
