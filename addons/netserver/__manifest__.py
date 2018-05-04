@@ -29,6 +29,7 @@
         'views/gateway_stats.xml',
         'views/frame_log.xml',
         'views/channel_configuration.xml',
+        'views/extra_channel.xml',
         'views/views.xml',
         'views/templates.xml',
     ],

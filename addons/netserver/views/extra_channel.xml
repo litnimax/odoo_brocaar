@@ -1,0 +1,72 @@
+<odoo>
+    <data>
+        <!--Extra Channel-->
+
+        <!--Extra Channel form view-->
+        <record model="ir.ui.view" id="extra_channel_form_view">
+            <field name="name">extra_channel.form</field>
+            <field name="model">lorawan.extra_channel</field>
+            <field name="arch" type="xml">
+                <form string="Extra Channel Form">
+                    <sheet>
+                        <notebook>
+                            <page string="Info">
+                                <group>
+                                    <field name="created_at" readonly="1"/>
+                                    <field name="updated_at" readonly="1"/>
+                                    <field name="modulation" readonly="1"/>
+                                    <field name="frequency" readonly="1"/>
+                                    <field name="bandwidth"/>
+                                    <field name="bit_rate"/>
+                                    <field name="channel_configuration_id" readonly="1"/>
+                                    <field name="spread_factors" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Extra Channel tree view-->
+        <record model="ir.ui.view" id="extra_channel_tree_view">
+            <field name="name">extra_channel.tree</field>
+            <field name="model">lorawan.extra_channel</field>
+            <field name="arch" type="xml">
+                <tree string="Extra Channel Tree">
+                    <field name="created_at"/>
+                    <field name="updated_at"/>
+                    <field name="modulation"/>
+                    <field name="frequency"/>
+                    <field name="bandwidth"/>
+                    <field name="bit_rate"/>
+                    <field name="spread_factors"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Extra Channel search view-->
+        <record model="ir.ui.view" id="extra_channel_search_view">
+            <field name="name">extra_channel.search</field>
+            <field name="model">lorawan.extra_channel</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="bit_rate"/>
+                </search>
+            </field>
+        </record>
+
+        <!--Extra Channel-->
+        <record model="ir.actions.act_window" id="extra_channel_list_action">
+            <field name="name">Extra Channel</field>
+            <field name="res_model">lorawan.extra_channel</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create the first extra channel
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
