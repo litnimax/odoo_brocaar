@@ -1,0 +1,67 @@
+<odoo>
+    <data>
+        <!--Device-->
+
+        <!--Device form view-->
+        <record model="ir.ui.view" id="device_form_view">
+            <field name="name">device.form</field>
+            <field name="model">lorawan.device</field>
+            <field name="arch" type="xml">
+                <form string="Device Form">
+                    <sheet>
+                        <notebook>
+                            <page string="Info">
+                                <group>
+                                    <field name="dev_eui" readonly="1"/>
+                                    <field name="created_at" readonly="1"/>
+                                    <field name="updated_at" readonly="1"/>
+                                    <field name="device_profile_id" readonly="1"/>
+                                    <field name="service_profile_id" readonly="1"/>
+                                    <field name="routing_profile_id" readonly="1"/>
+                                    <field name="skip_fcnt_check" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Device tree view-->
+        <record model="ir.ui.view" id="device_tree_view">
+            <field name="name">device.tree</field>
+            <field name="model">lorawan.device</field>
+            <field name="arch" type="xml">
+                <tree string="Device Tree">
+                    <field name="dev_eui"/>
+                    <field name="created_at"/>
+                    <field name="updated_at"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Device search view-->
+        <record model="ir.ui.view" id="device_search_view">
+            <field name="name">device.search</field>
+            <field name="model">lorawan.device</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="dev_eui"/>
+                </search>
+            </field>
+        </record>
+
+        <!--Device-->
+        <record model="ir.actions.act_window" id="device_list_action">
+            <field name="name">Device</field>
+            <field name="res_model">lorawan.device</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create the first device
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

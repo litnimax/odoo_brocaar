@@ -33,6 +33,7 @@
         'views/device_profile.xml',
         'views/service_profile.xml',
         'views/routing_profile.xml',
+        'views/device.xml',
         'views/views.xml',
         'views/templates.xml',
     ],
