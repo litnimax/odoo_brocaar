@@ -1,0 +1,86 @@
+<odoo>
+    <data>
+        <!--Service Profile-->
+
+        <!--Service Profile form view-->
+        <record model="ir.ui.view" id="service_profile_form_view">
+            <field name="name">service_profile.form</field>
+            <field name="model">lorawan.service_profile</field>
+            <field name="arch" type="xml">
+                <form string="Service Profile Form">
+                    <sheet>
+                        <notebook>
+                            <page string="Info">
+                                <group>
+                                    <field name="service_profile_id"/>
+                                    <field name="ul_rate"/>
+                                    <field name="ul_bucket_size"/>
+                                    <field name="created_at"/>
+                                    <field name="updated_at"/>
+                                    <field name="ul_rate_policy"/>
+                                    <field name="dl_rate"/>
+                                    <field name="dl_bucket_size"/>
+                                    <field name="dl_rate_policy"/>
+                                    <field name="add_gw_metadata"/>
+                                    <field name="dev_status_req_freq"/>
+                                    <field name="report_dev_status_battery"/>
+                                    <field name="report_dev_status_margin"/>
+                                    <field name="dr_min"/>
+                                    <field name="dr_max"/>
+                                    <field name="channel_mask"/>
+                                    <field name="pr_allowed"/>
+                                    <field name="hr_allowed"/>
+                                    <field name="ra_allowed"/>
+                                    <field name="nwk_geo_loc"/>
+                                    <field name="target_per"/>
+                                    <field name="min_gw_diversity"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Service Profile tree view-->
+        <record model="ir.ui.view" id="service_profile_tree_view">
+            <field name="name">service_profile.tree</field>
+            <field name="model">lorawan.service_profile</field>
+            <field name="arch" type="xml">
+                <tree string="Service Profile Tree">
+                    <field name="ul_bucket_size"/>
+                    <field name="dl_bucket_size"/>
+                    <field name="dl_rate_policy"/>
+                    <field name="created_at"/>
+                    <field name="updated_at"/>
+                    <field name="target_per"/>
+                    <field name="min_gw_diversity"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Service Profile search view-->
+        <record model="ir.ui.view" id="service_profile_search_view">
+            <field name="name">service_profile.search</field>
+            <field name="model">lorawan.service_profile</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="channel_mask"/>
+                </search>
+            </field>
+        </record>
+
+        <!--Service Profile-->
+        <record model="ir.actions.act_window" id="service_profile_list_action">
+            <field name="name">Service Profile</field>
+            <field name="res_model">lorawan.service_profile</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create the first service profile
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -31,6 +31,7 @@
         'views/channel_configuration.xml',
         'views/extra_channel.xml',
         'views/device_profile.xml',
+        'views/service_profile.xml',
         'views/views.xml',
         'views/templates.xml',
     ],
