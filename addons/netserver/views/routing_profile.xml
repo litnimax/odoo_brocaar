@@ -1,0 +1,70 @@
+<odoo>
+    <data>
+        <!--Routing Profile-->
+
+        <!--Routing Profile form view-->
+        <record model="ir.ui.view" id="routing_profile_form_view">
+            <field name="name">routing_profile.form</field>
+            <field name="model">lorawan.routing_profile</field>
+            <field name="arch" type="xml">
+                <form string="Routing Profile Form">
+                    <sheet>
+                        <notebook>
+                            <page string="Info">
+                                <group>
+                                    <field name="routing_profile_id" readonly="1"/>
+                                    <field name="as_id" readonly="1"/>
+                                    <field name="ca_cert" readonly="1"/>
+                                    <field name="tls_cert" readonly="1"/>
+                                    <field name="tls_key" readonly="1"/>
+                                    <field name="created_at" readonly="1"/>
+                                    <field name="updated_at" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Routing Profile tree view-->
+        <record model="ir.ui.view" id="routing_profile_tree_view">
+            <field name="name">routing_profile.tree</field>
+            <field name="model">lorawan.routing_profile</field>
+            <field name="arch" type="xml">
+                <tree string="Routing Profile Tree">
+                    <field name="routing_profile_id"/>
+                    <field name="as_id"/>
+                    <field name="created_at"/>
+                    <field name="updated_at"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Routing Profile search view-->
+        <record model="ir.ui.view" id="routing_profile_search_view">
+            <field name="name">routing_profile.search</field>
+            <field name="model">lorawan.routing_profile</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="ca_cert"/>
+                    <field name="tls_cert"/>
+                    <field name="tls_key"/>
+                </search>
+            </field>
+        </record>
+
+        <!--Routing Profile-->
+        <record model="ir.actions.act_window" id="routing_profile_list_action">
+            <field name="name">Routing Profile</field>
+            <field name="res_model">lorawan.routing_profile</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create the first routing profile
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
