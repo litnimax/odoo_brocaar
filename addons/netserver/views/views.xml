@@ -1,60 +1,48 @@
 <odoo>
-  <data>
-    <!-- explicit list view definition -->
-    <!--
-    <record model="ir.ui.view" id="netserver.list">
-      <field name="name">netserver list</field>
-      <field name="model">netserver.netserver</field>
-      <field name="arch" type="xml">
-        <tree>
-          <field name="name"/>
-          <field name="value"/>
-          <field name="value2"/>
-        </tree>
-      </field>
-    </record>
-    -->
-
-    <!-- actions opening views on models -->
-    <!--
-    <record model="ir.actions.act_window" id="netserver.action_window">
-      <field name="name">netserver window</field>
-      <field name="res_model">netserver.netserver</field>
-      <field name="view_mode">tree,form</field>
-    </record>
-    -->
-
-    <!-- server action to the one above -->
-    <!--
-    <record model="ir.actions.server" id="netserver.action_server">
-      <field name="name">netserver server</field>
-      <field name="model_id" ref="model_netserver_netserver"/>
-      <field name="state">code</field>
-      <field name="code">
-        action = {
-          "type": "ir.actions.act_window",
-          "view_mode": "tree,form",
-          "res_model": self._name,
-        }
-      </field>
-    </record>
-    -->
-
-    <!-- Top menu item -->
-    <!--
-    <menuitem name="netserver" id="netserver.menu_root"/>
-    -->
-    <!-- menu categories -->
-    <!--
-    <menuitem name="Menu 1" id="netserver.menu_1" parent="netserver.menu_root"/>
-    <menuitem name="Menu 2" id="netserver.menu_2" parent="netserver.menu_root"/>
-    -->
-    <!-- actions -->
-    <!--
-    <menuitem name="List" id="netserver.menu_1_list" parent="netserver.menu_1"
-              action="netserver.action_window"/>
-    <menuitem name="Server to list" id="netserver" parent="netserver.menu_2"
-              action="netserver.action_server"/>
-    -->
-  </data>
+    <data>
+        <!--Menu in header-->
+        <menuitem id="main_network_server_menu" name="Network server"/>
+        <!--Main menu item on the left panel-->
+        <menuitem id="network_server_menu" name="Network server"
+                  parent="main_network_server_menu"/>
+        <!--Gateway menu-->
+        <menuitem id="gateway_menu" name="Gateway" parent="network_server_menu"
+                  action="gateway_list_action" sequence="10"/>
+        <!--Gateway Stats menu-->
+        <menuitem id="gateway_stats_menu" name="Gateway Stats" parent="network_server_menu"
+                  action="gateway_stats_list_action" sequence="11"/>
+        <!--Gateway Profile menu-->
+        <menuitem id="gateway_profile_menu" name="Gateway Profile" parent="network_server_menu"
+                  action="gateway_profile_list_action" sequence="12"/>
+        <!--Gateway Profile Extra Channel menu-->
+        <menuitem id="gateway_profile_extra_channel_menu" name="Gateway Profile Extra Channel" parent="network_server_menu"
+                  action="gateway_profile_extra_channel_list_action" sequence="13"/>
+        <!--Device menu-->
+        <menuitem id="device_menu" name="Device" parent="network_server_menu"
+                  action="device_list_action" sequence="20"/>
+        <!--Device Activation menu-->
+        <menuitem id="device_activation_menu" name="Device Activation" parent="network_server_menu"
+                  action="device_activation_list_action" sequence="21"/>
+        <!--Device Queue menu-->
+        <menuitem id="device_queue_menu" name="Device Queue" parent="network_server_menu"
+                  action="device_queue_list_action" sequence="22"/>
+        <!--Device Profile menu-->
+        <menuitem id="device_profile_menu" name="Device Profile" parent="network_server_menu"
+                  action="device_profile_list_action" sequence="23"/>
+        <!--Frame Log menu-->
+        <menuitem id="frame_log_menu" name="Frame Log" parent="network_server_menu"
+                  action="frame_log_list_action" sequence="30"/>
+        <!--Channel Configuration menu-->
+        <menuitem id="channel_configuration_menu" name="Channel Configuration" parent="network_server_menu"
+                  action="channel_configuration_list_action" sequence="40"/>
+        <!--Extra Channel menu-->
+        <menuitem id="extra_channel_menu" name="Extra Channel" parent="network_server_menu"
+                  action="extra_channel_list_action" sequence="50"/>
+        <!--Service Profile menu-->
+        <menuitem id="service_profile_menu" name="Service Profile" parent="network_server_menu"
+                  action="service_profile_list_action" sequence="60"/>
+        <!--Routing Profile menu-->
+        <menuitem id="routing_profile_menu" name="Routing Profile" parent="network_server_menu"
+                  action="routing_profile_list_action" sequence="70"/>
+    </data>
 </odoo>
