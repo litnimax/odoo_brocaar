@@ -27,6 +27,7 @@
         # 'security/ir.model.access.csv',
         'views/gateway.xml',
         'views/gateway_stats.xml',
+        'views/frame_log.xml',
         'views/views.xml',
         'views/templates.xml',
     ],

@@ -1,0 +1,63 @@
+<odoo>
+    <data>
+        <!--Frame Log-->
+
+        <!--Frame Log form view-->
+        <record model="ir.ui.view" id="frame_log_form_view">
+            <field name="name">frame_log.form</field>
+            <field name="model">lorawan.frame_log</field>
+            <field name="arch" type="xml">
+                <form string="Frame Log Form">
+                    <sheet>
+                        <notebook>
+                            <page string="Info">
+                                <group>
+                                    <field name="created_at" readonly="1"/>
+                                    <field name="dev_eui" readonly="1"/>
+                                    <field name="rx_info_set" readonly="1"/>
+                                    <field name="tx_info" readonly="1"/>
+                                    <field name="phy_payload" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Frame Log tree view-->
+        <record model="ir.ui.view" id="frame_log_tree_view">
+            <field name="name">frame_log.tree</field>
+            <field name="model">lorawan.frame_log</field>
+            <field name="arch" type="xml">
+                <tree string="Frame Log Tree">
+                    <field name="dev_eui"/>
+                    <field name="created_at"/>
+                    <field name="phy_payload"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Frame Log search view-->
+        <record model="ir.ui.view" id="frame_log_search_view">
+            <field name="name">frame_log.search</field>
+            <field name="model">lorawan.frame_log</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="dev_eui"/>
+                    <field name="rx_info_set"/>
+                    <field name="tx_info"/>
+                    <field name="phy_payload"/>
+                </search>
+            </field>
+        </record>
+
+        <!--Frame Log-->
+        <record model="ir.actions.act_window" id="frame_log_list_action">
+            <field name="name">Frame Log</field>
+            <field name="res_model">lorawan.frame_log</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,search</field>
+        </record>
+    </data>
+</odoo>
