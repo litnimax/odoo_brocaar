@@ -57,7 +57,7 @@
             <field name="name">Frame Log</field>
             <field name="res_model">lorawan.frame_log</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree,form,search</field>
+            <field name="view_mode">tree,form</field>
         </record>
     </data>
 </odoo>

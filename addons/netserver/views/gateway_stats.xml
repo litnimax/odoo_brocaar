@@ -63,7 +63,7 @@
             <field name="name">Gateway Stats</field>
             <field name="res_model">lorawan.gateway_stats</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree,form,search</field>
+            <field name="view_mode">tree,form</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
                     Create the first gateway stats
