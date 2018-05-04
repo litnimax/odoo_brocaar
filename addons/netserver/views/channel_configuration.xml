@@ -1,0 +1,69 @@
+<odoo>
+    <data>
+        <!--Channel Configuration-->
+
+        <!--Channel Configuration form view-->
+        <record model="ir.ui.view" id="gateway_form_view">
+            <field name="name">channel_configuration.form</field>
+            <field name="model">lorawan.channel_configuration</field>
+            <field name="arch" type="xml">
+                <form string="Channel Configuration Form">
+                    <sheet>
+                        <notebook>
+                            <page string="Info">
+                                <group>
+                                    <field name="name"/>
+                                    <field name="created_at" readonly="1"/>
+                                    <field name="updated_at" readonly="1"/>
+                                    <field name="band" readonly="1"/>
+                                    <field name="channels" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Channel Configuration tree view-->
+        <record model="ir.ui.view" id="channel_configuration_tree_view">
+            <field name="name">channel_configuration.tree</field>
+            <field name="model">lorawan.channel_configuration</field>
+            <field name="arch" type="xml">
+                <tree string="Channel Configuration Tree">
+                    <field name="name"/>
+                    <field name="created_at"/>
+                    <field name="updated_at"/>
+                    <field name="band"/>
+                    <field name="channels"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Channel Configuration search view-->
+        <record model="ir.ui.view" id="gateway_search_view">
+            <field name="name">channel_configuration.search</field>
+            <field name="model">lorawan.channel_configuration</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="band"/>
+                    <field name="channels"/>
+                </search>
+            </field>
+        </record>
+
+        <!--Gateway-->
+        <record model="ir.actions.act_window" id="channel_configuration_list_action">
+            <field name="name">Channel Configuration</field>
+            <field name="res_model">lorawan.channel_configuration</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create the first channel configuration
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
