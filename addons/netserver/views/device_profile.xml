@@ -1,0 +1,72 @@
+<odoo>
+    <data>
+        <!--Device Profile-->
+
+        <!--Device Profile form view-->
+        <record model="ir.ui.view" id="device_profile_form_view">
+            <field name="name">device_profile.form</field>
+            <field name="model">lorawan.device_profile</field>
+            <field name="arch" type="xml">
+                <form string="Device Profile Form">
+                    <sheet>
+                        <notebook>
+                            <page string="Info">
+                                <group>
+                                    <field name="supports_class_b" readonly="1"/>
+                                    <field name="supports_class_c" readonly="1"/>
+                                    <field name="mac_version" readonly="1"/>
+                                    <field name="created_at" readonly="1"/>
+                                    <field name="updated_at" readonly="1"/>
+                                    <field name="supports_join" readonly="1"/>
+                                    <field name="rf_region" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Device Profile tree view-->
+        <record model="ir.ui.view" id="device_profile_tree_view">
+            <field name="name">device_profile.tree</field>
+            <field name="model">lorawan.device_profile</field>
+            <field name="arch" type="xml">
+                <tree string="Device Profile Tree">
+                    <field name="supports_class_b"/>
+                    <field name="supports_class_c"/>
+                    <field name="mac_version"/>
+                    <field name="created_at"/>
+                    <field name="updated_at"/>
+                    <field name="supports_join"/>
+                    <field name="rf_region"/>
+                    <field name="supports_32bit_fcnt"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Device Profile search view-->
+        <record model="ir.ui.view" id="device_profile_search_view">
+            <field name="name">device_profile.search</field>
+            <field name="model">lorawan.device_profile</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="mac_version"/>
+                </search>
+            </field>
+        </record>
+
+        <!--Device Profile-->
+        <record model="ir.actions.act_window" id="device_profile_list_action">
+            <field name="name">Device Profile</field>
+            <field name="res_model">lorawan.device_profile</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create the first device profile
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
