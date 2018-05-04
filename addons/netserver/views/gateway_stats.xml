@@ -1,0 +1,74 @@
+<odoo>
+    <data>
+        <!--Gateway Stats-->
+
+        <!--Gateway Stats form view-->
+        <record model="ir.ui.view" id="gateway_stats_form_view">
+            <field name="name">gateway_stats.form</field>
+            <field name="model">lorawan.gateway_stats</field>
+            <field name="arch" type="xml">
+                <form string="Gateway Stats Form">
+                    <sheet>
+                        <notebook>
+                            <page string="Info">
+                                <group>
+                                    <field name="mac" readonly="1"/>
+                                    <field name="timestamp" readonly="1"/>
+                                    <field name="interval" readonly="1"/>
+                                    <field name="rx_packets_received" readonly="1"/>
+                                    <field name="rx_packets_received_ok" readonly="1"/>
+                                    <field name="tx_packets_received" readonly="1"/>
+                                    <field name="tx_packets_emitted" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Gateway tree view-->
+        <record model="ir.ui.view" id="gateway_stats_tree_view">
+            <field name="name">gateway_stats.tree</field>
+            <field name="model">lorawan.gateway_stats</field>
+            <field name="arch" type="xml">
+                <tree string="Gateway Stats Tree">
+                    <field name="mac"/>
+                    <field name="timestamp"/>
+                    <field name="interval"/>
+                    <field name="rx_packets_received"/>
+                    <field name="rx_packets_received_ok"/>
+                    <field name="tx_packets_received"/>
+                    <field name="tx_packets_emitted"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Gateway Stats search view-->
+        <record model="ir.ui.view" id="gateway_stats_search_view">
+            <field name="name">gateway_stats.search</field>
+            <field name="model">lorawan.gateway_stats</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="rx_packets_received"/>
+                    <field name="rx_packets_received_ok"/>
+                    <field name="tx_packets_received"/>
+                    <field name="tx_packets_emitted"/>
+                </search>
+            </field>
+        </record>
+
+        <!--Gateway Stats-->
+        <record model="ir.actions.act_window" id="gateway_stats_list_action">
+            <field name="name">Gateway Stats</field>
+            <field name="res_model">lorawan.gateway_stats</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,search</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create the first gateway stats
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
