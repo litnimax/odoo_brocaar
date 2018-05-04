@@ -34,6 +34,7 @@
         'views/service_profile.xml',
         'views/routing_profile.xml',
         'views/device.xml',
+        'views/device_activation.xml',
         'views/views.xml',
         'views/templates.xml',
     ],
