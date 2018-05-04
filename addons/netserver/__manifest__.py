@@ -36,6 +36,7 @@
         'views/device.xml',
         'views/device_activation.xml',
         'views/device_queue.xml',
+        'views/gateway_profile.xml',
         'views/views.xml',
         'views/templates.xml',
     ],
