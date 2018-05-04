@@ -1,0 +1,69 @@
+<odoo>
+    <data>
+        <!--Gateway Profile Extra Channel-->
+
+        <!--Gateway Profile Extra Channel form view-->
+        <record model="ir.ui.view" id="gateway_profile_extra_channel_form_view">
+            <field name="name">gateway_profile_extra_channel.form</field>
+            <field name="model">lorawan.gateway_profile_extra_channel</field>
+            <field name="arch" type="xml">
+                <form string="Gateway Profile Extra Channel Form">
+                    <sheet>
+                        <notebook>
+                            <page string="Info">
+                                <group>
+                                    <field name="gateway_profile_id" readonly="1"/>
+                                    <field name="modulation" readonly="1"/>
+                                    <field name="frequency" readonly="1"/>
+                                    <field name="bandwidth" readonly="1"/>
+                                    <field name="bitrate" readonly="1"/>
+                                    <field name="spreading_factors" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Gateway Profile Extra Channel tree view-->
+        <record model="ir.ui.view" id="gateway_profile_extra_channel_tree_view">
+            <field name="name">gateway_profile_extra_channel.tree</field>
+            <field name="model">lorawan.gateway_profile_extra_channel</field>
+            <field name="arch" type="xml">
+                <tree string="Gateway Profile Extra Channel Tree">
+                    <field name="gateway_profile_id"/>
+                    <field name="modulation"/>
+                    <field name="frequency"/>
+                    <field name="bandwidth"/>
+                    <field name="bitrate"/>
+                    <field name="spreading_factors"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Gateway Profile Extra Channel search view-->
+        <record model="ir.ui.view" id="gateway_profile_extra_channel_search_view">
+            <field name="name">gateway_profile_extra_channel.search</field>
+            <field name="model">lorawan.gateway_profile_extra_channel</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="modulation"/>
+                </search>
+            </field>
+        </record>
+
+        <!--Gateway Profile Extra Channel-->
+        <record model="ir.actions.act_window" id="gateway_profile_extra_channel_list_action">
+            <field name="name">Gateway Profile Extra Channel</field>
+            <field name="res_model">lorawan.gateway_profile_extra_channel</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create the first gateway profile extra channel
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
