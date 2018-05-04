@@ -29,7 +29,9 @@ class GatewayStats(models.Model):
     _name = 'lorawan.gateway_stats'
     _table = 'gateway_stats'
 
-    mac = fields.Many2one(required=True, comodel_name='lorawan.gateway', ondelete='cascade')
+    # TODO mac must be defined as indicated below
+    # mac = fields.Many2one(required=True, comodel_name='lorawan.gateway', ondelete='cascade')
+    mac = fields.Char()
     timestamp = fields.Datetime(required=True)
     interval = fields.Char(size=10, required=True)
     rx_packets_received = fields.Integer(required=True)
