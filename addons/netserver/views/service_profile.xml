@@ -5,7 +5,7 @@
         <!--Service Profile form view-->
         <record model="ir.ui.view" id="service_profile_form_view">
             <field name="name">service_profile.form</field>
-            <field name="model">lorawan.service_profile</field>
+            <field name="model">netserver.service_profile</field>
             <field name="arch" type="xml">
                 <form string="Service Profile Form">
                     <sheet>
@@ -45,7 +45,7 @@
         <!--Service Profile tree view-->
         <record model="ir.ui.view" id="service_profile_tree_view">
             <field name="name">service_profile.tree</field>
-            <field name="model">lorawan.service_profile</field>
+            <field name="model">netserver.service_profile</field>
             <field name="arch" type="xml">
                 <tree string="Service Profile Tree">
                     <field name="ul_bucket_size"/>
@@ -62,7 +62,7 @@
         <!--Service Profile search view-->
         <record model="ir.ui.view" id="service_profile_search_view">
             <field name="name">service_profile.search</field>
-            <field name="model">lorawan.service_profile</field>
+            <field name="model">netserver.service_profile</field>
             <field name="arch" type="xml">
                 <search>
                     <field name="channel_mask"/>
@@ -73,7 +73,7 @@
         <!--Service Profile-->
         <record model="ir.actions.act_window" id="service_profile_list_action">
             <field name="name">Service Profile</field>
-            <field name="res_model">lorawan.service_profile</field>
+            <field name="res_model">netserver.service_profile</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">

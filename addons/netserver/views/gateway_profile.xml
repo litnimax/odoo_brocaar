@@ -5,7 +5,7 @@
         <!--Gateway Profile form view-->
         <record model="ir.ui.view" id="gateway_profile_form_view">
             <field name="name">gateway_profile.form</field>
-            <field name="model">lorawan.gateway_profile</field>
+            <field name="model">netserver.gateway_profile</field>
             <field name="arch" type="xml">
                 <form string="Gateway Profile Form">
                     <sheet>
@@ -27,7 +27,7 @@
         <!--Gateway Profile tree view-->
         <record model="ir.ui.view" id="gateway_profile_tree_view">
             <field name="name">gateway_profile.tree</field>
-            <field name="model">lorawan.gateway_profile</field>
+            <field name="model">netserver.gateway_profile</field>
             <field name="arch" type="xml">
                 <tree string="Gateway Profile Tree">
                     <field name="created_at"/>
@@ -41,7 +41,7 @@
         <!--Gateway Profile search view-->
         <record model="ir.ui.view" id="gateway_profile_search_view">
             <field name="name">gateway_profile.search</field>
-            <field name="model">lorawan.gateway_profile</field>
+            <field name="model">netserver.gateway_profile</field>
             <field name="arch" type="xml">
                 <search>
                     <field name="channels"/>
@@ -52,7 +52,7 @@
         <!--Gateway Profile-->
         <record model="ir.actions.act_window" id="gateway_profile_list_action">
             <field name="name">Gateway Profile</field>
-            <field name="res_model">lorawan.gateway_profile</field>
+            <field name="res_model">netserver.gateway_profile</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">

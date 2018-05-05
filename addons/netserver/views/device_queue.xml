@@ -5,7 +5,7 @@
         <!--Device Queue form view-->
         <record model="ir.ui.view" id="device_queue_form_view">
             <field name="name">device_queue.form</field>
-            <field name="model">lorawan.device_queue</field>
+            <field name="model">netserver.device_queue</field>
             <field name="arch" type="xml">
                 <form string="Device Queue Form">
                     <sheet>
@@ -31,7 +31,7 @@
         <!--Device Queue tree view-->
         <record model="ir.ui.view" id="device_queue_tree_view">
             <field name="name">device_queue.tree</field>
-            <field name="model">lorawan.device_queue</field>
+            <field name="model">netserver.device_queue</field>
             <field name="arch" type="xml">
                 <tree string="Device Queue Tree">
                     <field name="created_at"/>
@@ -49,7 +49,7 @@
         <!--Device Queue search view-->
         <record model="ir.ui.view" id="device_queue_search_view">
             <field name="name">device_queue.search</field>
-            <field name="model">lorawan.device_queue</field>
+            <field name="model">netserver.device_queue</field>
             <field name="arch" type="xml">
                 <search>
                     <field name="dev_eui"/>
@@ -60,7 +60,7 @@
         <!--Device Queue-->
         <record model="ir.actions.act_window" id="device_queue_list_action">
             <field name="name">Device Queue</field>
-            <field name="res_model">lorawan.device_queue</field>
+            <field name="res_model">netserver.device_queue</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">

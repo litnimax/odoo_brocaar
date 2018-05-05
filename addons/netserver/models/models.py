@@ -4,7 +4,7 @@ from odoo import models, fields, api
 
 # TODO check all fields in models, because problems may arrive with numeric types
 class Gateway(models.Model):
-    _name = 'lorawan.gateway'
+    _name = 'netserver.gateway'
     _table = 'gateway'
 
     # TODO mac sut be primarykey
@@ -18,19 +18,19 @@ class Gateway(models.Model):
     # TODO location field must be point type
     location = fields.Char(required=True)
     altitude = fields.Float(required=True)
-    channel_configuration_id = fields.Many2one(required=True, comodel_name='lorawan.channel_configuration',
+    channel_configuration_id = fields.Many2one(required=True, comodel_name='netserver.channel_configuration',
                                                ondelete='set null')
     # TODO gateway_profile_id must be defined as indicated below, in migrations file is not specified ondelete rule
-    # gateway_profile_id = fields.Many2one(comodel_name='lorawan.gateway_profile')
+    # gateway_profile_id = fields.Many2one(comodel_name='netserver.gateway_profile')
     gateway_profile_id = fields.Char()
 
 
 class GatewayStats(models.Model):
-    _name = 'lorawan.gateway_stats'
+    _name = 'netserver.gateway_stats'
     _table = 'gateway_stats'
 
     # TODO mac must be defined as indicated below
-    # mac = fields.Many2one(required=True, comodel_name='lorawan.gateway', ondelete='cascade')
+    # mac = fields.Many2one(required=True, comodel_name='netserver.gateway', ondelete='cascade')
     mac = fields.Char()
     timestamp = fields.Datetime(required=True)
     interval = fields.Char(size=10, required=True)
@@ -53,7 +53,7 @@ class GatewayStats(models.Model):
 
 
 class FrameLog(models.Model):
-    _name = 'lorawan.frame_log'
+    _name = 'netserver.frame_log'
     _table = 'frame_log'
 
     created_at = fields.Datetime(required=True)
@@ -65,7 +65,7 @@ class FrameLog(models.Model):
 
 
 class ChannelConfiguration(models.Model):
-    _name = 'lorawan.channel_configuration'
+    _name = 'netserver.channel_configuration'
     _table = 'channel_configuration'
 
     name = fields.Char(size=100, required=True)
@@ -76,10 +76,10 @@ class ChannelConfiguration(models.Model):
 
 
 class ExtraChannel(models.Model):
-    _name = 'lorawan.extra_channel'
+    _name = 'netserver.extra_channel'
     _table = 'extra_channel'
 
-    channel_configuration_id = fields.Many2one(required=True, comodel_name='lorawan.channel_configuration',
+    channel_configuration_id = fields.Many2one(required=True, comodel_name='netserver.channel_configuration',
                                                ondelete='cascade')
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
@@ -91,7 +91,7 @@ class ExtraChannel(models.Model):
 
 
 class DeviceProfile(models.Model):
-    _name = 'lorawan.device_profile'
+    _name = 'netserver.device_profile'
     _table = 'device_profile'
 
     created_at = fields.Datetime(required=True)
@@ -120,7 +120,7 @@ class DeviceProfile(models.Model):
 
 
 class ServiceProfile(models.Model):
-    _name = 'lorawan.service_profile'
+    _name = 'netserver.service_profile'
     _table = 'service_profile'
 
     created_at = fields.Datetime(required=True)
@@ -149,7 +149,7 @@ class ServiceProfile(models.Model):
 
 
 class RoutingProfile(models.Model):
-    _name = 'lorawan.routing_profile'
+    _name = 'netserver.routing_profile'
     _table = 'routing_profile'
 
     created_at = fields.Datetime(required=True)
@@ -163,7 +163,7 @@ class RoutingProfile(models.Model):
 
 
 class Device(models.Model):
-    _name = 'lorawan.device'
+    _name = 'netserver.device'
     _table = 'device'
 
     # TODO dev_eui must be primary key
@@ -171,9 +171,9 @@ class Device(models.Model):
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
     # TODO device_profile_id, service_profile_id, routing_profile_id must be defined as indicated below
-    # device_profile_id = fields.Many2one(required=True, comodel_name='lorawan.device_profile', ondelete='cascade')
-    # service_profile_id = fields.Many2one(required=True, comodel_name='lorawan.service_profile', ondelete='cascade')
-    # routing_profile_id = fields.Many2one(required=True, comodel_name='lorawan.routing_profile', ondelete='cascade')
+    # device_profile_id = fields.Many2one(required=True, comodel_name='netserver.device_profile', ondelete='cascade')
+    # service_profile_id = fields.Many2one(required=True, comodel_name='netserver.service_profile', ondelete='cascade')
+    # routing_profile_id = fields.Many2one(required=True, comodel_name='netserver.routing_profile', ondelete='cascade')
     device_profile_id = fields.Char()
     service_profile_id = fields.Char()
     routing_profile_id = fields.Char()
@@ -181,12 +181,12 @@ class Device(models.Model):
 
 
 class DeviceActivation(models.Model):
-    _name = 'lorawan.device_activation'
+    _name = 'netserver.device_activation'
     _table = 'device_activation'
 
     created_at = fields.Datetime(required=True)
     # TODO dev_eui must bedefined as indicated below
-    # dev_eui = fields.Many2one(required=True, comodel_name='lorawan.device', ondelete='cascade')
+    # dev_eui = fields.Many2one(required=True, comodel_name='netserver.device', ondelete='cascade')
     dev_eui = fields.Char()
     dev_addr = fields.Binary(required=True)
     nwk_s_key = fields.Binary(required=True)
@@ -195,13 +195,13 @@ class DeviceActivation(models.Model):
 
 
 class DeviceQueue(models.Model):
-    _name = 'lorawan.device_queue'
+    _name = 'netserver.device_queue'
     _table = 'device_queue'
 
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
     # TODO dev_eui must be defined as indicated below
-    # dev_eui = fields.Many2one(comodel_name='lorawan.device', ondelete='cascade')
+    # dev_eui = fields.Many2one(comodel_name='netserver.device', ondelete='cascade')
     dev_eui = fields.Char()
     confirmed = fields.Boolean(required=True)
     frm_payload = fields.Binary()
@@ -214,7 +214,7 @@ class DeviceQueue(models.Model):
 
 
 class GatewayProfile(models.Model):
-    _name = 'lorawan.gateway_profile'
+    _name = 'netserver.gateway_profile'
     _table = 'gateway_profile'
 
     # TODO gateway_profile_id must be primary key with uuid type
@@ -226,11 +226,11 @@ class GatewayProfile(models.Model):
 
 
 class GatewayProfileExtraChannel(models.Model):
-    _name = 'gateway.gateway_profile_extra_channel'
+    _name = 'netserver.gateway_profile_extra_channel'
     _table = 'gateway_profile_extra_channel'
 
     # TODO gateway_profile_id must be defined as indicated below
-    # gateway_profile_id = fields.Many2one(required=True, comodel_name='lorawan.gateway_profile', ondelete='cascade')
+    # gateway_profile_id = fields.Many2one(required=True, comodel_name='netserver.gateway_profile', ondelete='cascade')
     gateway_profile_id = fields.Char()
     modulation = fields.Char(size=10, required=True)
     frequency = fields.Integer(required=True)

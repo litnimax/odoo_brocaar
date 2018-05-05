@@ -5,7 +5,7 @@
         <!--Device form view-->
         <record model="ir.ui.view" id="device_form_view">
             <field name="name">device.form</field>
-            <field name="model">lorawan.device</field>
+            <field name="model">netserver.device</field>
             <field name="arch" type="xml">
                 <form string="Device Form">
                     <sheet>
@@ -30,7 +30,7 @@
         <!--Device tree view-->
         <record model="ir.ui.view" id="device_tree_view">
             <field name="name">device.tree</field>
-            <field name="model">lorawan.device</field>
+            <field name="model">netserver.device</field>
             <field name="arch" type="xml">
                 <tree string="Device Tree">
                     <field name="dev_eui"/>
@@ -43,7 +43,7 @@
         <!--Device search view-->
         <record model="ir.ui.view" id="device_search_view">
             <field name="name">device.search</field>
-            <field name="model">lorawan.device</field>
+            <field name="model">netserver.device</field>
             <field name="arch" type="xml">
                 <search>
                     <field name="dev_eui"/>
@@ -54,7 +54,7 @@
         <!--Device-->
         <record model="ir.actions.act_window" id="device_list_action">
             <field name="name">Device</field>
-            <field name="res_model">lorawan.device</field>
+            <field name="res_model">netserver.device</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">

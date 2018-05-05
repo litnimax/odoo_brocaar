@@ -5,7 +5,7 @@
         <!--Channel Configuration form view-->
         <record model="ir.ui.view" id="gateway_form_view">
             <field name="name">channel_configuration.form</field>
-            <field name="model">lorawan.channel_configuration</field>
+            <field name="model">netserver.channel_configuration</field>
             <field name="arch" type="xml">
                 <form string="Channel Configuration Form">
                     <sheet>
@@ -28,7 +28,7 @@
         <!--Channel Configuration tree view-->
         <record model="ir.ui.view" id="channel_configuration_tree_view">
             <field name="name">channel_configuration.tree</field>
-            <field name="model">lorawan.channel_configuration</field>
+            <field name="model">netserver.channel_configuration</field>
             <field name="arch" type="xml">
                 <tree string="Channel Configuration Tree">
                     <field name="name"/>
@@ -43,7 +43,7 @@
         <!--Channel Configuration search view-->
         <record model="ir.ui.view" id="gateway_search_view">
             <field name="name">channel_configuration.search</field>
-            <field name="model">lorawan.channel_configuration</field>
+            <field name="model">netserver.channel_configuration</field>
             <field name="arch" type="xml">
                 <search>
                     <field name="name"/>
@@ -56,7 +56,7 @@
         <!--Channel Configuration-->
         <record model="ir.actions.act_window" id="channel_configuration_list_action">
             <field name="name">Channel Configuration</field>
-            <field name="res_model">lorawan.channel_configuration</field>
+            <field name="res_model">netserver.channel_configuration</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">

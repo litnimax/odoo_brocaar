@@ -5,7 +5,7 @@
         <!--Frame Log form view-->
         <record model="ir.ui.view" id="frame_log_form_view">
             <field name="name">frame_log.form</field>
-            <field name="model">lorawan.frame_log</field>
+            <field name="model">netserver.frame_log</field>
             <field name="arch" type="xml">
                 <form string="Frame Log Form">
                     <sheet>
@@ -28,7 +28,7 @@
         <!--Frame Log tree view-->
         <record model="ir.ui.view" id="frame_log_tree_view">
             <field name="name">frame_log.tree</field>
-            <field name="model">lorawan.frame_log</field>
+            <field name="model">netserver.frame_log</field>
             <field name="arch" type="xml">
                 <tree string="Frame Log Tree">
                     <field name="dev_eui"/>
@@ -41,7 +41,7 @@
         <!--Frame Log search view-->
         <record model="ir.ui.view" id="frame_log_search_view">
             <field name="name">frame_log.search</field>
-            <field name="model">lorawan.frame_log</field>
+            <field name="model">netserver.frame_log</field>
             <field name="arch" type="xml">
                 <search>
                     <field name="dev_eui"/>
@@ -55,7 +55,7 @@
         <!--Frame Log-->
         <record model="ir.actions.act_window" id="frame_log_list_action">
             <field name="name">Frame Log</field>
-            <field name="res_model">lorawan.frame_log</field>
+            <field name="res_model">netserver.frame_log</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>

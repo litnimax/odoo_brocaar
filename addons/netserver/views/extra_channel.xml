@@ -5,7 +5,7 @@
         <!--Extra Channel form view-->
         <record model="ir.ui.view" id="extra_channel_form_view">
             <field name="name">extra_channel.form</field>
-            <field name="model">lorawan.extra_channel</field>
+            <field name="model">netserver.extra_channel</field>
             <field name="arch" type="xml">
                 <form string="Extra Channel Form">
                     <sheet>
@@ -31,7 +31,7 @@
         <!--Extra Channel tree view-->
         <record model="ir.ui.view" id="extra_channel_tree_view">
             <field name="name">extra_channel.tree</field>
-            <field name="model">lorawan.extra_channel</field>
+            <field name="model">netserver.extra_channel</field>
             <field name="arch" type="xml">
                 <tree string="Extra Channel Tree">
                     <field name="created_at"/>
@@ -48,7 +48,7 @@
         <!--Extra Channel search view-->
         <record model="ir.ui.view" id="extra_channel_search_view">
             <field name="name">extra_channel.search</field>
-            <field name="model">lorawan.extra_channel</field>
+            <field name="model">netserver.extra_channel</field>
             <field name="arch" type="xml">
                 <search>
                     <field name="bit_rate"/>
@@ -59,7 +59,7 @@
         <!--Extra Channel-->
         <record model="ir.actions.act_window" id="extra_channel_list_action">
             <field name="name">Extra Channel</field>
-            <field name="res_model">lorawan.extra_channel</field>
+            <field name="res_model">netserver.extra_channel</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">

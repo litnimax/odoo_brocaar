@@ -5,7 +5,7 @@
         <!--Gateway Stats form view-->
         <record model="ir.ui.view" id="gateway_stats_form_view">
             <field name="name">gateway_stats.form</field>
-            <field name="model">lorawan.gateway_stats</field>
+            <field name="model">netserver.gateway_stats</field>
             <field name="arch" type="xml">
                 <form string="Gateway Stats Form">
                     <sheet>
@@ -30,7 +30,7 @@
         <!--Gateway tree view-->
         <record model="ir.ui.view" id="gateway_stats_tree_view">
             <field name="name">gateway_stats.tree</field>
-            <field name="model">lorawan.gateway_stats</field>
+            <field name="model">netserver.gateway_stats</field>
             <field name="arch" type="xml">
                 <tree string="Gateway Stats Tree">
                     <field name="mac"/>
@@ -47,7 +47,7 @@
         <!--Gateway Stats search view-->
         <record model="ir.ui.view" id="gateway_stats_search_view">
             <field name="name">gateway_stats.search</field>
-            <field name="model">lorawan.gateway_stats</field>
+            <field name="model">netserver.gateway_stats</field>
             <field name="arch" type="xml">
                 <search>
                     <field name="rx_packets_received"/>
@@ -61,7 +61,7 @@
         <!--Gateway Stats-->
         <record model="ir.actions.act_window" id="gateway_stats_list_action">
             <field name="name">Gateway Stats</field>
-            <field name="res_model">lorawan.gateway_stats</field>
+            <field name="res_model">netserver.gateway_stats</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">

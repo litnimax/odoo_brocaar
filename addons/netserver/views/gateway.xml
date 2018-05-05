@@ -5,7 +5,7 @@
         <!--Gateway form view-->
         <record model="ir.ui.view" id="gateway_form_view">
             <field name="name">gateway.form</field>
-            <field name="model">lorawan.gateway</field>
+            <field name="model">netserver.gateway</field>
             <field name="arch" type="xml">
                 <form string="Gateway Form">
                     <sheet>
@@ -34,7 +34,7 @@
         <!--Gateway tree view-->
         <record model="ir.ui.view" id="gateway_tree_view">
             <field name="name">gateway.tree</field>
-            <field name="model">lorawan.gateway</field>
+            <field name="model">netserver.gateway</field>
             <field name="arch" type="xml">
                 <tree string="Gateway Tree">
                     <field name="mac"/>
@@ -51,7 +51,7 @@
         <!--Gateway search view-->
         <record model="ir.ui.view" id="gateway_search_view">
             <field name="name">gateway.search</field>
-            <field name="model">lorawan.gateway</field>
+            <field name="model">netserver.gateway</field>
             <field name="arch" type="xml">
                 <search>
                     <field name="name"/>
@@ -64,7 +64,7 @@
         <!--Gateway-->
         <record model="ir.actions.act_window" id="gateway_list_action">
             <field name="name">Gateway</field>
-            <field name="res_model">lorawan.gateway</field>
+            <field name="res_model">netserver.gateway</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
