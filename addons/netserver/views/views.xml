@@ -5,29 +5,35 @@
         <!--Main menu item on the left panel-->
         <menuitem id="network_server_menu" name="Network server"
                   parent="main_network_server_menu"/>
+        <!--Gateway menu item on the left panel-->
+        <menuitem id="gateway_lp_menu" name="Gateway"
+                  parent="network_server_menu"/>
         <!--Gateway menu-->
-        <menuitem id="gateway_menu" name="Gateway" parent="network_server_menu"
+        <menuitem id="gateway_menu" name="Gateway" parent="gateway_lp_menu"
                   action="gateway_list_action" sequence="10"/>
         <!--Gateway Stats menu-->
-        <menuitem id="gateway_stats_menu" name="Gateway Stats" parent="network_server_menu"
+        <menuitem id="gateway_stats_menu" name="Gateway Stats" parent="gateway_lp_menu"
                   action="gateway_stats_list_action" sequence="11"/>
         <!--Gateway Profile menu-->
-        <menuitem id="gateway_profile_menu" name="Gateway Profile" parent="network_server_menu"
+        <menuitem id="gateway_profile_menu" name="Gateway Profile" parent="gateway_lp_menu"
                   action="gateway_profile_list_action" sequence="12"/>
         <!--Gateway Profile Extra Channel menu-->
-        <menuitem id="gateway_profile_extra_channel_menu" name="Gateway Profile Extra Channel" parent="network_server_menu"
+        <menuitem id="gateway_profile_extra_channel_menu" name="Gateway Profile Extra Channel" parent="gateway_lp_menu"
                   action="gateway_profile_extra_channel_list_action" sequence="13"/>
+        <!--Device menu item on the left panel-->
+        <menuitem id="device_lp_menu" name="Device"
+                  parent="network_server_menu"/>
         <!--Device menu-->
-        <menuitem id="device_menu" name="Device" parent="network_server_menu"
+        <menuitem id="device_menu" name="Device" parent="device_lp_menu"
                   action="device_list_action" sequence="20"/>
         <!--Device Activation menu-->
-        <menuitem id="device_activation_menu" name="Device Activation" parent="network_server_menu"
+        <menuitem id="device_activation_menu" name="Device Activation" parent="device_lp_menu"
                   action="device_activation_list_action" sequence="21"/>
         <!--Device Queue menu-->
-        <menuitem id="device_queue_menu" name="Device Queue" parent="network_server_menu"
+        <menuitem id="device_queue_menu" name="Device Queue" parent="device_lp_menu"
                   action="device_queue_list_action" sequence="22"/>
         <!--Device Profile menu-->
-        <menuitem id="device_profile_menu" name="Device Profile" parent="network_server_menu"
+        <menuitem id="device_profile_menu" name="Device Profile" parent="device_lp_menu"
                   action="device_profile_list_action" sequence="23"/>
         <!--Frame Log menu-->
         <menuitem id="frame_log_menu" name="Frame Log" parent="network_server_menu"
