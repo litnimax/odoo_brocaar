@@ -1,0 +1,69 @@
+<odoo>
+    <data>
+        <!--Device-->
+
+        <!--Device form view-->
+        <record model="ir.ui.view" id="device_form_view">
+            <field name="name">device.form</field>
+            <field name="model">appserver.device</field>
+            <field name="arch" type="xml">
+                <form string="Device Form">
+                    <sheet>
+                        <notebook>
+                            <page string="Info">
+                                <group>
+                                    <field name="name" readonly="1"/>
+                                    <field name="description" readonly="1"/>
+                                    <field name="created_at" readonly="1"/>
+                                    <field name="updated_at" readonly="1"/>
+                                    <field name="application_id" readonly="1"/>
+                                    <field name="device_profile_id" readonly="1"/>
+                                    <field name="last_seen_at" readonly="1"/>
+                                    <field name="device_status_battery" readonly="1"/>
+                                    <field name="device_status_margin" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Device tree view-->
+        <record model="ir.ui.view" id="device_tree_view">
+            <field name="name">device.tree</field>
+            <field name="model">appserver.device</field>
+            <field name="arch" type="xml">
+                <tree string="Device Tree">
+                    <field name="name"/>
+                    <field name="last_seen_at"/>
+                    <field name="created_at"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Device search view-->
+        <record model="ir.ui.view" id="device_search_view">
+            <field name="name">device.search</field>
+            <field name="model">appserver.device</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <!--Device-->
+        <record model="ir.actions.act_window" id="device_list_action">
+            <field name="name">Device</field>
+            <field name="res_model">appserver.device</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create the first device
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
