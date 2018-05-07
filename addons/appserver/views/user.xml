@@ -1,0 +1,68 @@
+<odoo>
+    <data>
+        <!--User-->
+
+        <!--User form view-->
+        <record model="ir.ui.view" id="user_form_view">
+            <field name="name">user.form</field>
+            <field name="model">appserver.user</field>
+            <field name="arch" type="xml">
+                <form string="User Form">
+                    <sheet>
+                        <notebook>
+                            <page string="Info">
+                                <group>
+                                    <field name="created_at" readonly="1"/>
+                                    <field name="updated_at" readonly="1"/>
+                                    <field name="username" readonly="1"/>
+                                    <field name="email" readonly="1"/>
+                                    <field name="session_ttl" readonly="1"/>
+                                    <field name="is_admin" readonly="1"/>
+                                    <field name="is_active" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--User tree view-->
+        <record model="ir.ui.view" id="user_tree_view">
+            <field name="name">user.tree</field>
+            <field name="model">appserver.user</field>
+            <field name="arch" type="xml">
+                <tree string="User Tree">
+                    <field name="username"/>
+                    <field name="is_active"/>
+                    <field name="email"/>
+                    <field name="is_admin"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--User search view-->
+        <record model="ir.ui.view" id="user_search_view">
+            <field name="name">user.search</field>
+            <field name="model">appserver.user</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="username"/>
+                </search>
+            </field>
+        </record>
+
+        <!--User-->
+        <record model="ir.actions.act_window" id="user_list_action">
+            <field name="name">User</field>
+            <field name="res_model">appserver.user</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create the first user
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
