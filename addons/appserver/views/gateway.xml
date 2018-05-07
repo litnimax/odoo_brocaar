@@ -1,0 +1,68 @@
+<odoo>
+    <data>
+        <!--Gateway-->
+
+        <!--Gateway form view-->
+        <record model="ir.ui.view" id="gateway_form_view">
+            <field name="name">gateway.form</field>
+            <field name="model">appserver.gateway</field>
+            <field name="arch" type="xml">
+                <form string="Gateway Form">
+                    <sheet>
+                        <notebook>
+                            <page string="Info">
+                                <group>
+                                    <field name="mac" readonly="1"/>
+                                    <field name="name" readonly="1"/>
+                                    <field name="description" readonly="1"/>
+                                    <field name="created_at" readonly="1"/>
+                                    <field name="organization_id" readonly="1"/>
+                                    <field name="ping" readonly="1"/>
+                                    <field name="last_ping_sent_at" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Gateway tree view-->
+        <record model="ir.ui.view" id="gateway_tree_view">
+            <field name="name">gateway.tree</field>
+            <field name="model">appserver.gateway</field>
+            <field name="arch" type="xml">
+                <tree string="Gateway Tree">
+                    <field name="name"/>
+                    <field name="created_at"/>
+                    <field name="ping"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Gateway search view-->
+        <record model="ir.ui.view" id="gateway_search_view">
+            <field name="name">gateway.search</field>
+            <field name="model">appserver.gateway</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="description"/>
+                </search>
+            </field>
+        </record>
+
+        <!--Gateway-->
+        <record model="ir.actions.act_window" id="gateway_list_action">
+            <field name="name">Gateway</field>
+            <field name="res_model">appserver.gateway</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create the first gateway
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
