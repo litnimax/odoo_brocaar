@@ -1,0 +1,65 @@
+<odoo>
+    <data>
+        <!--Organization-->
+
+        <!--Organization form view-->
+        <record model="ir.ui.view" id="organization_form_view">
+            <field name="name">organization.form</field>
+            <field name="model">appserver.organization</field>
+            <field name="arch" type="xml">
+                <form string="Organization Form">
+                    <sheet>
+                        <notebook>
+                            <page string="Info">
+                                <group>
+                                    <field name="name" readonly="1"/>
+                                    <field name="can_have_gateways" readonly="1"/>
+                                    <field name="created_at" readonly="1"/>
+                                    <field name="updated_at" readonly="1"/>
+                                    <field name="display_name" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Organization tree view-->
+        <record model="ir.ui.view" id="organization_tree_view">
+            <field name="name">organization.tree</field>
+            <field name="model">appserver.organization</field>
+            <field name="arch" type="xml">
+                <tree string="Organization Tree">
+                    <field name="name"/>
+                    <field name="can_have_gateways"/>
+                    <field name="created_at"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Organization search view-->
+        <record model="ir.ui.view" id="organization_search_view">
+            <field name="name">organization.search</field>
+            <field name="model">appserver.organization</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <!--Organization-->
+        <record model="ir.actions.act_window" id="organization_list_action">
+            <field name="name">Organization</field>
+            <field name="res_model">appserver.organization</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create the first organization
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
