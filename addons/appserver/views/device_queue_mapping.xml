@@ -1,0 +1,64 @@
+<odoo>
+    <data>
+        <!--Device Queue Mapping-->
+
+        <!--Device Queue Mapping form view-->
+        <record model="ir.ui.view" id="device_queue_mapping_form_view">
+            <field name="name">device_queue_mapping.form</field>
+            <field name="model">appserver.device_queue_mapping</field>
+            <field name="arch" type="xml">
+                <form string="Device Queue Mapping Form">
+                    <sheet>
+                        <notebook>
+                            <page string="Info">
+                                <group>
+                                    <field name="dev_eui" readonly="1"/>
+                                    <field name="reference" readonly="1"/>
+                                    <field name="created_at" readonly="1"/>
+                                    <field name="f_cnt" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Device Queue Mapping tree view-->
+        <record model="ir.ui.view" id="device_queue_mapping_tree_view">
+            <field name="name">device_queue_mapping.tree</field>
+            <field name="model">appserver.device_queue_mapping</field>
+            <field name="arch" type="xml">
+                <tree string="Device Queue Mapping Tree">
+                    <field name="dev_eui"/>
+                    <field name="created_at"/>
+                    <field name="f_cnt"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Device Queue Mapping search view-->
+        <record model="ir.ui.view" id="device_queue_mapping_search_view">
+            <field name="name">device_queue_mapping.search</field>
+            <field name="model">appserver.device_queue_mapping</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="reference"/>
+                </search>
+            </field>
+        </record>
+
+        <!--Device Queue Mapping-->
+        <record model="ir.actions.act_window" id="device_queue_mapping_list_action">
+            <field name="name">Device Queue Mapping</field>
+            <field name="res_model">appserver.device_queue_mapping</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create the first device queue mapping
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
