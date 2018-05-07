@@ -1,0 +1,65 @@
+<odoo>
+    <data>
+        <!--Integration-->
+
+        <!--Integration form view-->
+        <record model="ir.ui.view" id="integration_form_view">
+            <field name="name">integration.form</field>
+            <field name="model">appserver.integration</field>
+            <field name="arch" type="xml">
+                <form string="Integration Form">
+                    <sheet>
+                        <notebook>
+                            <page string="Info">
+                                <group>
+                                    <field name="kind" readonly="1"/>
+                                    <field name="application_id" readonly="1"/>
+                                    <field name="created_at" readonly="1"/>
+                                    <field name="updated_at" readonly="1"/>
+                                    <field name="settings" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Integration tree view-->
+        <record model="ir.ui.view" id="integration_tree_view">
+            <field name="name">integration.tree</field>
+            <field name="model">appserver.integration</field>
+            <field name="arch" type="xml">
+                <tree string="Integration Tree">
+                    <field name="kind"/>
+                    <field name="settings"/>
+                    <field name="created_at"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Integration search view-->
+        <record model="ir.ui.view" id="integration_search_view">
+            <field name="name">integration.search</field>
+            <field name="model">appserver.integration</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="kind"/>
+                </search>
+            </field>
+        </record>
+
+        <!--Integration-->
+        <record model="ir.actions.act_window" id="integration_list_action">
+            <field name="name">Integration</field>
+            <field name="res_model">appserver.integration</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create the first integration
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
