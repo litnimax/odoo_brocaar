@@ -1,0 +1,66 @@
+<odoo>
+    <data>
+        <!--Downlink Queue-->
+
+        <!--Downlink Queue form view-->
+        <record model="ir.ui.view" id="application_form_view">
+            <field name="name">downlink_queue.form</field>
+            <field name="model">appserver.downlink_queue</field>
+            <field name="arch" type="xml">
+                <form string="Downlink Queue Form">
+                    <sheet>
+                        <notebook>
+                            <page string="Info">
+                                <group>
+                                    <field name="reference" readonly="1"/>
+                                    <field name="dev_eui" readonly="1"/>
+                                    <field name="confirmed" readonly="1"/>
+                                    <field name="pending" readonly="1"/>
+                                    <field name="fport" readonly="1"/>
+                                    <field name="data" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Downlink Queue tree view-->
+        <record model="ir.ui.view" id="downlink_queue_tree_view">
+            <field name="name">downlink_queue.tree</field>
+            <field name="model">appserver.downlink_queue</field>
+            <field name="arch" type="xml">
+                <tree string="Downlink Queue Tree">
+                    <field name="reference"/>
+                    <field name="dev_eui"/>
+                    <field name="confirmed"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Downlink Queue search view-->
+        <record model="ir.ui.view" id="downlink_queue_search_view">
+            <field name="name">downlink_queue.search</field>
+            <field name="model">appserver.downlink_queue</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="reference"/>
+                </search>
+            </field>
+        </record>
+
+        <!--Downlink Queue-->
+        <record model="ir.actions.act_window" id="downlink_queue_list_action">
+            <field name="name">Downlink Queue</field>
+            <field name="res_model">appserver.downlink_queue</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create the first downlink queue
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
