@@ -1,0 +1,66 @@
+<odoo>
+    <data>
+        <!--Service Profile-->
+
+        <!--Service Profile form view-->
+        <record model="ir.ui.view" id="service_profile_form_view">
+            <field name="name">service_profile.form</field>
+            <field name="model">appserver.service_profile</field>
+            <field name="arch" type="xml">
+                <form string="Service Profile Form">
+                    <sheet>
+                        <notebook>
+                            <page string="Info">
+                                <group>
+                                    <field name="name" readonly="1"/>
+                                    <field name="service_profile_id" readonly="1"/>
+                                    <field name="organization_id" readonly="1"/>
+                                    <field name="network_server_id" readonly="1"/>
+                                    <field name="created_at" readonly="1"/>
+                                    <field name="updated_at" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Service Profile tree view-->
+        <record model="ir.ui.view" id="service_profile_tree_view">
+            <field name="name">service_profile.tree</field>
+            <field name="model">appserver.service_profile</field>
+            <field name="arch" type="xml">
+                <tree string="Service Profile Tree">
+                    <field name="name"/>
+                    <field name="service_profile_id"/>
+                    <field name="network_server_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Service Profile search view-->
+        <record model="ir.ui.view" id="service_profile_search_view">
+            <field name="name">service_profile.search</field>
+            <field name="model">appserver.service_profile</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <!--Service Profile-->
+        <record model="ir.actions.act_window" id="service_profile_list_action">
+            <field name="name">Service Profile</field>
+            <field name="res_model">appserver.service_profile</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create the first service profile
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
