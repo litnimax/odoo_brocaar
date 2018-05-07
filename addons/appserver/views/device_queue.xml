@@ -1,0 +1,68 @@
+<odoo>
+    <data>
+        <!--Device Queue-->
+
+        <!--Device Queue form view-->
+        <record model="ir.ui.view" id="device_queue_form_view">
+            <field name="name">device_queue.form</field>
+            <field name="model">appserver.device_queue</field>
+            <field name="arch" type="xml">
+                <form string="Device Queue Form">
+                    <sheet>
+                        <notebook>
+                            <page string="Info">
+                                <group>
+                                    <field name="reference" readonly="1"/>
+                                    <field name="created_at" readonly="1"/>
+                                    <field name="updated_at" readonly="1"/>
+                                    <field name="dev_eui" readonly="1"/>
+                                    <field name="confirmed" readonly="1"/>
+                                    <field name="pending" readonly="1"/>
+                                    <field name="fport" readonly="1"/>
+                                    <field name="data" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Device Queue tree view-->
+        <record model="ir.ui.view" id="device_queue_tree_view">
+            <field name="name">device_queue.tree</field>
+            <field name="model">appserver.device_queue</field>
+            <field name="arch" type="xml">
+                <tree string="Device Queue Tree">
+                    <field name="reference"/>
+                    <field name="created_at"/>
+                    <field name="updated_at"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Device Queue search view-->
+        <record model="ir.ui.view" id="device_queue_search_view">
+            <field name="name">device_queue.search</field>
+            <field name="model">appserver.device_queue</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="reference"/>
+                </search>
+            </field>
+        </record>
+
+        <!--Device Queue-->
+        <record model="ir.actions.act_window" id="device_queue_list_action">
+            <field name="name">Device Queue</field>
+            <field name="res_model">appserver.device_queue</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create the first device queue
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
