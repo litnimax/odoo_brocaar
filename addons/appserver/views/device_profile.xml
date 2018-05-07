@@ -1,0 +1,65 @@
+<odoo>
+    <data>
+        <!--Device Profile-->
+
+        <!--Device Profile form view-->
+        <record model="ir.ui.view" id="device_profile_form_view">
+            <field name="name">device_profile.form</field>
+            <field name="model">appserver.device_profile</field>
+            <field name="arch" type="xml">
+                <form string="Device Profile Form">
+                    <sheet>
+                        <notebook>
+                            <page string="Info">
+                                <group>
+                                    <field name="name" readonly="1"/>
+                                    <field name="network_server_id" readonly="1"/>
+                                    <field name="organization_id" readonly="1"/>
+                                    <field name="created_at" readonly="1"/>
+                                    <field name="updated_at" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Device Profile tree view-->
+        <record model="ir.ui.view" id="device_profile_tree_view">
+            <field name="name">device_profile.tree</field>
+            <field name="model">appserver.device_profile</field>
+            <field name="arch" type="xml">
+                <tree string="Device Profile Tree">
+                    <field name="name"/>
+                    <field name="created_at"/>
+                    <field name="updated_at"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Device Profile search view-->
+        <record model="ir.ui.view" id="device_profile_search_view">
+            <field name="name">device_profile.search</field>
+            <field name="model">appserver.device_profile</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <!--Device Profile-->
+        <record model="ir.actions.act_window" id="device_profile_list_action">
+            <field name="name">Device Profile</field>
+            <field name="res_model">appserver.device_profile</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create the first device profile
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
