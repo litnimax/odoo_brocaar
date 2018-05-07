@@ -1,0 +1,80 @@
+<odoo>
+    <data>
+        <!--Node-->
+
+        <!--Node form view-->
+        <record model="ir.ui.view" id="node_form_view">
+            <field name="name">node.form</field>
+            <field name="model">appserver.node</field>
+            <field name="arch" type="xml">
+                <form string="Node Form">
+                    <sheet>
+                        <notebook>
+                            <page string="Info">
+                                <group>
+                                    <field name="name" readonly="1"/>
+                                    <field name="description" readonly="1"/>
+                                    <field name="dev_eui" readonly="1"/>
+                                    <field name="app_eui" readonly="1"/>
+                                    <field name="is_abp" readonly="1"/>
+                                    <field name="app_key" readonly="1"/>
+                                    <field name="used_dev_nonces" readonly="1"/>
+                                    <field name="rx_delay" readonly="1"/>
+                                    <field name="rx1_dr_offset" readonly="1"/>
+                                    <field name="relax_fcnt" readonly="1"/>
+                                    <field name="is_class_c" readonly="1"/>
+                                    <field name="rx_window" readonly="1"/>
+                                    <field name="rx2_dr" readonly="1"/>
+                                    <field name="app_s_key" readonly="1"/>
+                                    <field name="nwk_s_key" readonly="1"/>
+                                    <field name="dev_addr" readonly="1"/>
+                                    <field name="adr_interval" readonly="1"/>
+                                    <field name="installation_margin" readonly="1"/>
+                                    <field name="use_application_settings" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Node tree view-->
+        <record model="ir.ui.view" id="node_tree_view">
+            <field name="name">node.tree</field>
+            <field name="model">appserver.node</field>
+            <field name="arch" type="xml">
+                <tree string="Node Tree">
+                    <field name="name"/>
+                    <field name="dev_eui"/>
+                    <field name="app_eui"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Node search view-->
+        <record model="ir.ui.view" id="node_search_view">
+            <field name="name">node.search</field>
+            <field name="model">appserver.node</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="description"/>
+                </search>
+            </field>
+        </record>
+
+        <!--Node-->
+        <record model="ir.actions.act_window" id="node_list_action">
+            <field name="name">Node</field>
+            <field name="res_model">appserver.node</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create the first node
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

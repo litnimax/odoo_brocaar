@@ -1,0 +1,67 @@
+<odoo>
+    <data>
+        <!--Application-->
+
+        <!--Application form view-->
+        <record model="ir.ui.view" id="application_form_view">
+            <field name="name">application.form</field>
+            <field name="model">appserver.application</field>
+            <field name="arch" type="xml">
+                <form string="Application Form">
+                    <sheet>
+                        <notebook>
+                            <page string="Info">
+                                <group>
+                                    <field name="name" readonly="1"/>
+                                    <field name="description" readonly="1"/>
+                                    <field name="service_profile_id" readonly="1"/>
+                                    <field name="payload_codec" readonly="1"/>
+                                    <field name="payload_encoder_script" readonly="1"/>
+                                    <field name="payload_decoder_script" readonly="1"/>
+                                    <field name="organization_id" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Application tree view-->
+        <record model="ir.ui.view" id="application_tree_view">
+            <field name="name">application.tree</field>
+            <field name="model">appserver.application</field>
+            <field name="arch" type="xml">
+                <tree string="Application Tree">
+                    <field name="name"/>
+                    <field name="service_profile_id"/>
+                    <field name="payload_codec"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Application search view-->
+        <record model="ir.ui.view" id="application_search_view">
+            <field name="name">application.search</field>
+            <field name="model">appserver.application</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <!--Application-->
+        <record model="ir.actions.act_window" id="application_list_action">
+            <field name="name">Application</field>
+            <field name="res_model">appserver.application</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create the first application
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
