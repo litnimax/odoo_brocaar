@@ -1,0 +1,67 @@
+<odoo>
+    <data>
+        <!--Gateway Ping Rx-->
+
+        <!--Gateway Ping Rx form view-->
+        <record model="ir.ui.view" id="gateway_ping_rx_form_view">
+            <field name="name">gateway_ping_rx.form</field>
+            <field name="model">appserver.gateway_ping_rx</field>
+            <field name="arch" type="xml">
+                <form string="Gateway Ping Rx Form">
+                    <sheet>
+                        <notebook>
+                            <page string="Info">
+                                <group>
+                                    <field name="created_at" readonly="1"/>
+                                    <field name="ping_id" readonly="1"/>
+                                    <field name="gateway_mac" readonly="1"/>
+                                    <field name="received_at" readonly="1"/>
+                                    <field name="rssi" readonly="1"/>
+                                    <field name="lora_snr" readonly="1"/>
+                                    <field name="location" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Gateway Ping Rx tree view-->
+        <record model="ir.ui.view" id="gateway_ping_rx_tree_view">
+            <field name="name">gateway_ping_rx.tree</field>
+            <field name="model">appserver.gateway_ping_rx</field>
+            <field name="arch" type="xml">
+                <tree string="Gateway Ping Rx Tree">
+                    <field name="gateway_mac"/>
+                    <field name="rssi"/>
+                    <field name="location"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Gateway Ping Rx search view-->
+        <record model="ir.ui.view" id="gateway_ping_rx_search_view">
+            <field name="name">gateway_ping_rx.search</field>
+            <field name="model">appserver.gateway_ping_rx</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="gateway_mac"/>
+                </search>
+            </field>
+        </record>
+
+        <!--Gateway Ping Rx-->
+        <record model="ir.actions.act_window" id="gateway_ping_rx_list_action">
+            <field name="name">Gateway Ping Rx</field>
+            <field name="res_model">appserver.gateway_ping_rx</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create the first gateway ping rx
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
