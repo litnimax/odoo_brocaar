@@ -1,0 +1,65 @@
+<odoo>
+    <data>
+        <!--Device Keys-->
+
+        <!--Device Keys form view-->
+        <record model="ir.ui.view" id="device_keys_form_view">
+            <field name="name">device_keys.form</field>
+            <field name="model">appserver.device_keys</field>
+            <field name="arch" type="xml">
+                <form string="Device Keys Form">
+                    <sheet>
+                        <notebook>
+                            <page string="Info">
+                                <group>
+                                    <field name="dev_eui" readonly="1"/>
+                                    <field name="created_at" readonly="1"/>
+                                    <field name="updated_at" readonly="1"/>
+                                    <field name="app_key" readonly="1"/>
+                                    <field name="join_nonce" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Device Keys tree view-->
+        <record model="ir.ui.view" id="device_keys_tree_view">
+            <field name="name">device_keys.tree</field>
+            <field name="model">appserver.device_keys</field>
+            <field name="arch" type="xml">
+                <tree string="Device Keys Tree">
+                    <field name="dev_eui"/>
+                    <field name="created_at"/>
+                    <field name="updated_at"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Device Keys search view-->
+        <record model="ir.ui.view" id="device_keys_search_view">
+            <field name="name">device_keys.search</field>
+            <field name="model">appserver.device_keys</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="dev_eui"/>
+                </search>
+            </field>
+        </record>
+
+        <!--Device Keys-->
+        <record model="ir.actions.act_window" id="device_keys_list_action">
+            <field name="name">Device Keys</field>
+            <field name="res_model">appserver.device_keys</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create the first device keys
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
