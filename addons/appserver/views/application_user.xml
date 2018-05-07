@@ -44,7 +44,7 @@
             <field name="model">appserver.application_user</field>
             <field name="arch" type="xml">
                 <search>
-                    <field name="name"/>
+                    <field name="user_id"/>
                 </search>
             </field>
         </record>
