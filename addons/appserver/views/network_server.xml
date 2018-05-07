@@ -1,0 +1,74 @@
+<odoo>
+    <data>
+        <!--Network Server-->
+
+        <!--Network Server form view-->
+        <record model="ir.ui.view" id="network_server_form_view">
+            <field name="name">network_server.form</field>
+            <field name="model">appserver.network_server</field>
+            <field name="arch" type="xml">
+                <form string="Network Server Form">
+                    <sheet>
+                        <notebook>
+                            <page string="Info">
+                                <group>
+                                    <field name="name" readonly="1"/>
+                                    <field name="created_at" readonly="1"/>
+                                    <field name="updated_at" readonly="1"/>
+                                    <field name="server" readonly="1"/>
+                                    <field name="ca_cert" readonly="1"/>
+                                    <field name="tls_cert" readonly="1"/>
+                                    <field name="tls_key" readonly="1"/>
+                                    <field name="routing_profile_ca_cert" readonly="1"/>
+                                    <field name="routing_profile_tls_cert" readonly="1"/>
+                                    <field name="routing_profile_tls_key" readonly="1"/>
+                                    <field name="gateway_discovery_enabled" readonly="1"/>
+                                    <field name="gateway_discovery_interval" readonly="1"/>
+                                    <field name="gateway_discovery_tx_frequency" readonly="1"/>
+                                    <field name="gateway_discovery_dr" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Network Server tree view-->
+        <record model="ir.ui.view" id="network_server_tree_view">
+            <field name="name">network_server.tree</field>
+            <field name="model">appserver.network_server</field>
+            <field name="arch" type="xml">
+                <tree string="Network Server Tree">
+                    <field name="name"/>
+                    <field name="server"/>
+                    <field name="gateway_discovery_enabled"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Network Server search view-->
+        <record model="ir.ui.view" id="network_server_search_view">
+            <field name="name">network_server.search</field>
+            <field name="model">appserver.network_server</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <!--Network Server-->
+        <record model="ir.actions.act_window" id="network_server_list_action">
+            <field name="name">Network Server</field>
+            <field name="res_model">appserver.network_server</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create the first network server
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
