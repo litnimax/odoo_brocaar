@@ -1,0 +1,65 @@
+<odoo>
+    <data>
+        <!--Device Activation-->
+
+        <!--Device Activation form view-->
+        <record model="ir.ui.view" id="device_activation_form_view">
+            <field name="name">device_activation.form</field>
+            <field name="model">appserver.device_activation</field>
+            <field name="arch" type="xml">
+                <form string="Device Activation Form">
+                    <sheet>
+                        <notebook>
+                            <page string="Info">
+                                <group>
+                                    <field name="dev_eui" readonly="1"/>
+                                    <field name="dev_addr" readonly="1"/>
+                                    <field name="app_s_key" readonly="1"/>
+                                    <field name="nwk_s_key" readonly="1"/>
+                                    <field name="created_at" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Device Activation tree view-->
+        <record model="ir.ui.view" id="device_activation_tree_view">
+            <field name="name">device_activation.tree</field>
+            <field name="model">appserver.device_activation</field>
+            <field name="arch" type="xml">
+                <tree string="Device Activation Tree">
+                    <field name="dev_eui"/>
+                    <field name="dev_addr"/>
+                    <field name="created_at"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Device Activation search view-->
+        <record model="ir.ui.view" id="device_activation_search_view">
+            <field name="name">device_activation.search</field>
+            <field name="model">appserver.device_activation</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="app_s_key"/>
+                </search>
+            </field>
+        </record>
+
+        <!--Device Activation-->
+        <record model="ir.actions.act_window" id="device_activation_list_action">
+            <field name="name">Device Activation</field>
+            <field name="res_model">appserver.device_activation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create the first device activation
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
