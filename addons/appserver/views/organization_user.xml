@@ -1,0 +1,66 @@
+<odoo>
+    <data>
+        <!--Organization User-->
+
+        <!--Organization User form view-->
+        <record model="ir.ui.view" id="organization_user_form_view">
+            <field name="name">organization_user.form</field>
+            <field name="model">appserver.organization_user</field>
+            <field name="arch" type="xml">
+                <form string="Organization User Form">
+                    <sheet>
+                        <notebook>
+                            <page string="Info">
+                                <group>
+                                    <field name="created_at" readonly="1"/>
+                                    <field name="updated_at" readonly="1"/>
+                                    <field name="user_id" readonly="1"/>
+                                    <field name="organization_id" readonly="1"/>
+                                    <field name="is_admin" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Organization User tree view-->
+        <record model="ir.ui.view" id="organization_user_tree_view">
+            <field name="name">organization_user.tree</field>
+            <field name="model">appserver.organization_user</field>
+            <field name="arch" type="xml">
+                <tree string="Organization User Tree">
+                    <field name="organization_id"/>
+                    <field name="created_at"/>
+                    <field name="user_id"/>
+                    <field name="is_admin"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Organization User search view-->
+        <record model="ir.ui.view" id="organization_user_search_view">
+            <field name="name">organization_user.search</field>
+            <field name="model">appserver.organization_user</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="user_id"/>
+                </search>
+            </field>
+        </record>
+
+        <!--Organization User-->
+        <record model="ir.actions.act_window" id="organization_user_list_action">
+            <field name="name">Organization User</field>
+            <field name="res_model">appserver.organization_user</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create the first organization user
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
