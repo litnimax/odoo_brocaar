@@ -1,0 +1,64 @@
+<odoo>
+    <data>
+        <!--Gateway Ping-->
+
+        <!--Gateway Ping form view-->
+        <record model="ir.ui.view" id="gateway_ping_form_view">
+            <field name="name">gateway_ping.form</field>
+            <field name="model">appserver.gateway_ping</field>
+            <field name="arch" type="xml">
+                <form string="Gateway Ping Form">
+                    <sheet>
+                        <notebook>
+                            <page string="Info">
+                                <group>
+                                    <field name="created_at" readonly="1"/>
+                                    <field name="gateway_mac" readonly="1"/>
+                                    <field name="dr" readonly="1"/>
+                                    <field name="frequency" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Gateway Ping tree view-->
+        <record model="ir.ui.view" id="gateway_ping_tree_view">
+            <field name="name">gateway_ping.tree</field>
+            <field name="model">appserver.gateway_ping</field>
+            <field name="arch" type="xml">
+                <tree string="Gateway Ping Tree">
+                    <field name="created_at"/>
+                    <field name="gateway_mac"/>
+                    <field name="frequency"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Gateway Ping search view-->
+        <record model="ir.ui.view" id="gateway_ping_search_view">
+            <field name="name">gateway_ping.search</field>
+            <field name="model">appserver.gateway_ping</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="frequency"/>
+                </search>
+            </field>
+        </record>
+
+        <!--Gateway Ping-->
+        <record model="ir.actions.act_window" id="gateway_ping_list_action">
+            <field name="name">Gateway Ping</field>
+            <field name="res_model">appserver.gateway_ping</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create the first gateway ping
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
