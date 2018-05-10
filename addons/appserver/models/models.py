@@ -36,11 +36,11 @@ class Node(models.Model):
     description = fields.Text(required=True)
     application_id = fields.Many2one(required=True, comodel_name='appserver.application', ondelete='cascade')
     # TODO dev_eui must be primary key
-    dev_eui = fields.Binary()
-    app_eui = fields.Binary()
+    dev_eui = fields.Char()
+    app_eui = fields.Char()
     is_abp = fields.Boolean(required=True, default=False)
     app_key = fields.Binary(required=True)
-    used_dev_nonces = fields.Binary()
+    used_dev_nonces = fields.Char()
     rx_delay = fields.Integer(required=True)
     rx1_dr_offset = fields.Integer(required=True)
     relax_fcnt = fields.Boolean(required=True, default=False)
@@ -149,7 +149,7 @@ class Gateway(models.Model):
     _auto = False
 
     # TODO mac sut be primarykey
-    mac = fields.Binary()
+    mac = fields.Char()
     name = fields.Char(size=100, required=True)
     description = fields.Text()
     created_at = fields.Datetime(required=True)
@@ -271,7 +271,7 @@ class Device(models.Model):
     _auto = False
 
     # TODO dev_eui must be primary key
-    dev_eui = fields.Binary()
+    dev_eui = fields.Char()
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
     application_id = fields.Many2one(required=True, comodel_name='appserver.application', ondelete='cascade')
@@ -291,7 +291,7 @@ class DeviceKeys(models.Model):
 
     # TODO dev_eui must be primary key and defined as indicated below
     # dev_eui = fields.Many2one(required=True, comodel_name='appserver.device', ondelete='cascade')
-    dev_eui = fields.Binary()
+    dev_eui = fields.Char()
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
     app_key = fields.Binary(required=True)
@@ -305,7 +305,7 @@ class DeviceActivation(models.Model):
     created_at = fields.Datetime(required=True)
     # TODO dev_eui must be primary key and defined as indicated below
     # dev_eui = fields.Many2one(required=True, comodel_name='appserver.device', ondelete='cascade')
-    dev_eui = fields.Binary()
+    dev_eui = fields.Char()
     dev_addr = fields.Binary(required=True)
     app_s_key = fields.Binary(required=True)
     nwk_s_key = fields.Binary(required=True)

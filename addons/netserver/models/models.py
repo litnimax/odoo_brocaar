@@ -9,7 +9,7 @@ class Gateway(models.Model):
     _auto = False
 
     # TODO mac sut be primarykey
-    mac = fields.Binary()
+    mac = fields.Char()
     name = fields.Char(size=100, required=True)
     description = fields.Text()
     created_at = fields.Datetime(required=True)
@@ -146,7 +146,7 @@ class ServiceProfile(models.Model):
     report_dev_status_margin = fields.Boolean(required=True)
     dr_min = fields.Integer(required=True)
     dr_max = fields.Integer(required=True)
-    channel_mask = fields.Binary()
+    channel_mask = fields.Char()
     pr_allowed = fields.Boolean(required=True)
     hr_allowed = fields.Boolean(required=True)
     ra_allowed = fields.Boolean(required=True)
@@ -176,7 +176,7 @@ class Device(models.Model):
     _auto = False
 
     # TODO dev_eui must be primary key
-    dev_eui = fields.Binary()
+    dev_eui = fields.Char()
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
     # TODO device_profile_id, service_profile_id, routing_profile_id must be defined as indicated below
@@ -215,7 +215,7 @@ class DeviceQueue(models.Model):
     # dev_eui = fields.Many2one(comodel_name='netserver.device', ondelete='cascade')
     dev_eui = fields.Char()
     confirmed = fields.Boolean(required=True)
-    frm_payload = fields.Binary()
+    frm_payload = fields.Char()
     f_cnt = fields.Integer(required=True)
     f_port = fields.Integer(required=True)
     is_pending = fields.Boolean(required=True)
