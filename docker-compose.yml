@@ -3,16 +3,11 @@ version: '3'
 services:
   loraserver:
     image: loraserver/loraserver:latest
-    depends_on:
-      - odoo_ns
-      - odoo_as
     volumes:
       - ./configuration/loraserver:/etc/loraserver
 
   appserver:
     image: loraserver/lora-app-server:latest
-    depends_on:
-      - loraserver
     ports:
       - 8080:8080
     volumes:
@@ -51,6 +46,7 @@ services:
       dockerfile: odoo/Dockerfile
     depends_on:
       - postgresql
+      - appserver
     ports:
       - 8069:8069
     environment:
@@ -67,6 +63,7 @@ services:
       dockerfile: odoo/Dockerfile
     depends_on:
       - postgresql
+      - loraserver
     ports:
       - 8070:8069
     environment:
