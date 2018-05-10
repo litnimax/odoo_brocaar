@@ -184,9 +184,23 @@ class Device(models.Model):
     # service_profile_id = fields.Many2one(required=True, comodel_name='netserver.service_profile', ondelete='cascade')
     # routing_profile_id = fields.Many2one(required=True, comodel_name='netserver.routing_profile', ondelete='cascade')
     device_profile_id = fields.Char()
+    device_profile_id_ = fields.Many2one(string='Device Profile',
+                                         comodel='appserver.device_profile',
+                                         compute='_get_device_profile_id',
+                                         ondelete='cascade')
     service_profile_id = fields.Char()
     routing_profile_id = fields.Char()
     skip_fcnt_check = fields.Boolean(required=True, default=False)
+
+    @api.multi
+    def _get_device_profile_id(self):
+        for self in self:
+            device_profile = self.env['netserver.device_profile'].search(
+                [('device_profile_id', '=', self.device_profile_id)])
+            if device_profile:
+                self.device_profile_id_ = device_profile.id
+            else:
+                self.device_profile_id_ = False
 
 
 class DeviceActivation(models.Model):
