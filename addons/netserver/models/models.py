@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 
 
 # TODO check all fields in models, because problems may arrive with numeric types
@@ -7,6 +7,25 @@ class Gateway(models.Model):
     _name = 'netserver.gateway'
     _table = 'gateway'
     _auto = False
+    _sql = """ALTER TABLE gateway ADD COLUMN IF NOT EXISTS id INTEGER;
+              CREATE SEQUENCE IF NOT EXISTS gateway_id_seq;
+              ALTER TABLE gateway ALTER COLUMN id SET DEFAULT nextval('gateway_id_seq');
+              UPDATE gateway SET id = nextval('gateway_id_seq');
+    """
+
+    _sql_constraints = [
+        (
+            'gateway_name_key',
+            'UNIQUE(name)',
+            _(u'This mac address is aloready used!')
+        )
+    ]
+
+
+    @api.model_cr
+    def init(self):
+        self.env.cr.execute(self._sql)
+
 
     # TODO mac sut be primarykey
     mac = fields.Char()
@@ -19,7 +38,8 @@ class Gateway(models.Model):
     # TODO location field must be point type
     location = fields.Char(required=True)
     altitude = fields.Float(required=True)
-    channel_configuration_id = fields.Many2one(required=True, comodel_name='netserver.channel_configuration',
+    channel_configuration_id = fields.Many2one(required=True,
+                                               comodel_name='netserver.channel_configuration',
                                                ondelete='set null')
     # TODO gateway_profile_id must be defined as indicated below, in migrations file is not specified ondelete rule
     # gateway_profile_id = fields.Many2one(comodel_name='netserver.gateway_profile')
@@ -99,6 +119,16 @@ class DeviceProfile(models.Model):
     _name = 'netserver.device_profile'
     _table = 'device_profile'
     _auto = False
+    _sql = """ALTER TABLE device_profile ADD COLUMN IF NOT EXISTS id INTEGER;
+              CREATE SEQUENCE IF NOT EXISTS device_profile_id_seq;
+              ALTER TABLE device_profile ALTER COLUMN id SET DEFAULT nextval('device_profile_id_seq');
+              UPDATE device_profile SET id = nextval('device_profile_id_seq');
+    """
+
+    @api.model_cr
+    def init(self):
+        self.env.cr.execute(self._sql)
+    
 
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
@@ -174,6 +204,16 @@ class Device(models.Model):
     _name = 'netserver.device'
     _table = 'device'
     _auto = False
+    _sql = """ALTER TABLE device ADD COLUMN IF NOT EXISTS id INTEGER;
+              CREATE SEQUENCE IF NOT EXISTS device_id_seq;
+              ALTER TABLE device ALTER COLUMN id SET DEFAULT nextval('device_id_seq');
+              UPDATE device SET id = nextval('device_id_seq');
+    """
+
+    @api.model_cr
+    def init(self):
+        self.env.cr.execute(self._sql)
+
 
     # TODO dev_eui must be primary key
     dev_eui = fields.Char()
@@ -185,12 +225,13 @@ class Device(models.Model):
     # routing_profile_id = fields.Many2one(required=True, comodel_name='netserver.routing_profile', ondelete='cascade')
     device_profile_id = fields.Char()
     device_profile_id_ = fields.Many2one(string='Device Profile',
-                                         comodel='appserver.device_profile',
+                                         comodel_name='netserver.device_profile',
                                          compute='_get_device_profile_id',
                                          ondelete='cascade')
     service_profile_id = fields.Char()
     routing_profile_id = fields.Char()
     skip_fcnt_check = fields.Boolean(required=True, default=False)
+
 
     @api.multi
     def _get_device_profile_id(self):

@@ -55,7 +55,8 @@ services:
       - PASSWORD=loraserver_as
     volumes:
       - "./addons/appserver/:/mnt/extra-addons/appserver/"
-    command: ["odoo", "--workers=0", "--db-filter=loraserver_as", "--database=loraserver_as", "--log-level=debug"]
+    command: ["odoo", "--workers=0", "--db-filter=loraserver_as", "-u", "appserver",
+            "--database=loraserver_as", "--log-level=debug"]
 
   odoo_ns:
     build:
@@ -72,4 +73,6 @@ services:
       - PASSWORD=loraserver_ns
     volumes:
       - "./addons/netserver/:/mnt/extra-addons/netserver/"
-    command: ["odoo", "--workers=0", "--db-filter=loraserver_ns", "--database=loraserver_ns", "--log-level=debug"]
+    command: ["odoo", "--workers=0", "--db-filter=loraserver_ns", "-u", "netserver",
+            "--database=loraserver_ns", "--log-level=debug"]
+

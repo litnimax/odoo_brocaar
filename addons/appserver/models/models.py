@@ -291,7 +291,7 @@ class Device(models.Model):
     device_status_margin = fields.Integer(required=True)
 
 
-    @api.mutli
+    @api.multi
     def _get_device_profile_id(self):
         for self in self:
             device_profile = self.env['appserver.device_profile'].search(
