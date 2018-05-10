@@ -44,7 +44,7 @@ dsn="postgres://loraserver_ns:loraserver_ns@postgresql/loraserver_ns?sslmode=dis
 # or let LoRa App Server migrate to the latest state automatically, by using
 # this setting. Make sure that you always make a backup when upgrading Lora
 # App Server and / or applying migrations.
-automigrate=false
+automigrate=true
 
 
 # Redis settings
