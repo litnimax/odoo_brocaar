@@ -6,6 +6,7 @@ from odoo import models, fields, api
 class Gateway(models.Model):
     _name = 'netserver.gateway'
     _table = 'gateway'
+    _auto = False
 
     # TODO mac sut be primarykey
     mac = fields.Binary()
@@ -28,6 +29,7 @@ class Gateway(models.Model):
 class GatewayStats(models.Model):
     _name = 'netserver.gateway_stats'
     _table = 'gateway_stats'
+    _auto = False
 
     # TODO mac must be defined as indicated below
     # mac = fields.Many2one(required=True, comodel_name='netserver.gateway', ondelete='cascade')
@@ -55,6 +57,7 @@ class GatewayStats(models.Model):
 class FrameLog(models.Model):
     _name = 'netserver.frame_log'
     _table = 'frame_log'
+    _auto = False
 
     created_at = fields.Datetime(required=True)
     dev_eui = fields.Binary(required=True)
@@ -67,6 +70,7 @@ class FrameLog(models.Model):
 class ChannelConfiguration(models.Model):
     _name = 'netserver.channel_configuration'
     _table = 'channel_configuration'
+    _auto = False
 
     name = fields.Char(size=100, required=True)
     created_at = fields.Datetime(required=True)
@@ -78,6 +82,7 @@ class ChannelConfiguration(models.Model):
 class ExtraChannel(models.Model):
     _name = 'netserver.extra_channel'
     _table = 'extra_channel'
+    _auto = False
 
     channel_configuration_id = fields.Many2one(required=True, comodel_name='netserver.channel_configuration',
                                                ondelete='cascade')
@@ -93,6 +98,7 @@ class ExtraChannel(models.Model):
 class DeviceProfile(models.Model):
     _name = 'netserver.device_profile'
     _table = 'device_profile'
+    _auto = False
 
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
@@ -122,6 +128,7 @@ class DeviceProfile(models.Model):
 class ServiceProfile(models.Model):
     _name = 'netserver.service_profile'
     _table = 'service_profile'
+    _auto = False
 
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
@@ -151,6 +158,7 @@ class ServiceProfile(models.Model):
 class RoutingProfile(models.Model):
     _name = 'netserver.routing_profile'
     _table = 'routing_profile'
+    _auto = False
 
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
@@ -165,6 +173,7 @@ class RoutingProfile(models.Model):
 class Device(models.Model):
     _name = 'netserver.device'
     _table = 'device'
+    _auto = False
 
     # TODO dev_eui must be primary key
     dev_eui = fields.Binary()
@@ -183,6 +192,7 @@ class Device(models.Model):
 class DeviceActivation(models.Model):
     _name = 'netserver.device_activation'
     _table = 'device_activation'
+    _auto = False
 
     created_at = fields.Datetime(required=True)
     # TODO dev_eui must bedefined as indicated below
@@ -197,6 +207,7 @@ class DeviceActivation(models.Model):
 class DeviceQueue(models.Model):
     _name = 'netserver.device_queue'
     _table = 'device_queue'
+    _auto = False
 
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
@@ -216,6 +227,7 @@ class DeviceQueue(models.Model):
 class GatewayProfile(models.Model):
     _name = 'netserver.gateway_profile'
     _table = 'gateway_profile'
+    _auto = False
 
     # TODO gateway_profile_id must be primary key with uuid type
     gateway_profile_id = fields.Char()
@@ -228,6 +240,7 @@ class GatewayProfile(models.Model):
 class GatewayProfileExtraChannel(models.Model):
     _name = 'netserver.gateway_profile_extra_channel'
     _table = 'gateway_profile_extra_channel'
+    _auto = False
 
     # TODO gateway_profile_id must be defined as indicated below
     # gateway_profile_id = fields.Many2one(required=True, comodel_name='netserver.gateway_profile', ondelete='cascade')

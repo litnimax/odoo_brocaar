@@ -6,6 +6,7 @@ from odoo import models, fields, api
 class Application(models.Model):
     _name = 'appserver.application'
     _table = 'application'
+    _auto = False
 
     name = fields.Char(required=True)
     description = fields.Text(required=True)
@@ -29,6 +30,7 @@ class Application(models.Model):
 class Node(models.Model):
     _name = 'appserver.node'
     _table = 'node'
+    _auto = False
 
     name = fields.Char(size=100, required=True, default='')
     description = fields.Text(required=True)
@@ -64,6 +66,7 @@ class Node(models.Model):
 class DownlinkQueue(models.Model):
     _name = 'appserver.downlink_queue'
     _table = 'downlink_queue'
+    _auto = False
 
     reference = fields.Char(size=100, required=True)
     # TODO dev_eui must be defined as indicated below
@@ -77,6 +80,7 @@ class DownlinkQueue(models.Model):
 class User(models.Model):
     _name = 'appserver.user'
     _table = 'user'
+    _auto = False
 
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
@@ -91,6 +95,7 @@ class User(models.Model):
 class ApplicationUser(models.Model):
     _name = 'appserver.application_user'
     _table = 'application_user'
+    _auto = False
 
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
@@ -110,6 +115,7 @@ class ApplicationUser(models.Model):
 class Organization(models.Model):
     _name = 'appserver.organization'
     _table = 'organization'
+    _auto = False
 
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
@@ -120,6 +126,7 @@ class Organization(models.Model):
 class OrganizationUser(models.Model):
     _name = 'appserver.organization_user'
     _table = 'organization_user'
+    _auto = False
 
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
@@ -139,6 +146,7 @@ class OrganizationUser(models.Model):
 class Gateway(models.Model):
     _name = 'appserver.gateway'
     _table = 'gateway'
+    _auto = False
 
     # TODO mac sut be primarykey
     mac = fields.Binary()
@@ -164,6 +172,7 @@ class Gateway(models.Model):
 class Integration(models.Model):
     _name = 'appserver.integration'
     _table = 'integration'
+    _auto = False
 
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
@@ -184,6 +193,7 @@ class Integration(models.Model):
 class GatewayPing(models.Model):
     _name = 'appserver.gateway_ping'
     _table = 'gateway_ping'
+    _auto = False
 
     created_at = fields.Datetime(required=True)
     # TODO gateway_mac must be defined as indicated below
@@ -195,6 +205,7 @@ class GatewayPing(models.Model):
 class GatewayPingRx(models.Model):
     _name = 'appserver.gateway_ping_rx'
     _table = 'gateway_ping_rx'
+    _auto = False
 
     created_at = fields.Datetime(required=True)
     ping_id = fields.Many2one(required=True, comodel_name='appserver.gateway_ping', ondelete='cascade')
@@ -211,6 +222,7 @@ class GatewayPingRx(models.Model):
 class NetworkServer(models.Model):
     _name = 'appserver.network_server'
     _table = 'network_server'
+    _auto = False
 
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
@@ -230,6 +242,7 @@ class NetworkServer(models.Model):
 class ServiceProfile(models.Model):
     _name = 'appserver.service_profile'
     _table = 'service_profile'
+    _auto = False
 
     # TODO service_profile_id must be primary key with uuid type
     service_profile_id = fields.Char()
@@ -242,6 +255,7 @@ class ServiceProfile(models.Model):
 class DeviceProfile(models.Model):
     _name = 'appserver.device_profile'
     _table = 'device_profile'
+    _auto = False
 
     # TODO device_profile_id must be primary key with uuid type
     device_profile_id = fields.Char()
@@ -254,6 +268,7 @@ class DeviceProfile(models.Model):
 class Device(models.Model):
     _name = 'appserver.device'
     _table = 'device'
+    _auto = False
 
     # TODO dev_eui must be primary key
     dev_eui = fields.Binary()
@@ -272,6 +287,7 @@ class Device(models.Model):
 class DeviceKeys(models.Model):
     _name = 'appserver.device_keys'
     _table = 'device_keys'
+    _auto = False
 
     # TODO dev_eui must be primary key and defined as indicated below
     # dev_eui = fields.Many2one(required=True, comodel_name='appserver.device', ondelete='cascade')
@@ -284,6 +300,7 @@ class DeviceKeys(models.Model):
 class DeviceActivation(models.Model):
     _name = 'appserver.device_activation'
     _table = 'device_activation'
+    _auto = False
 
     created_at = fields.Datetime(required=True)
     # TODO dev_eui must be primary key and defined as indicated below
@@ -296,6 +313,7 @@ class DeviceActivation(models.Model):
 class DeviceQueue(models.Model):
     _name = 'appserver.device_queue'
     _table = 'device_queue'
+    _auto = False
 
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
@@ -311,6 +329,7 @@ class DeviceQueue(models.Model):
 class DeviceQueueMapping(models.Model):
     _name = 'appserver.device_queue_mapping'
     _table = 'device_queue_mapping'
+    _auto = False
 
     created_at = fields.Datetime(required=True)
     reference = fields.Text(required=True)
@@ -322,6 +341,7 @@ class DeviceQueueMapping(models.Model):
 class GatewayProfile(models.Model):
     _name = 'appserver.gateway_profile'
     _table = 'gateway_profile'
+    _auto = False
 
     # TODO gateway_profile_id must be primary key with uuid type
     gateway_profile_id = fields.Char()
