@@ -2,7 +2,6 @@
 from odoo import models, fields, api
 
 
-# TODO check all fields in models, because problems may arrive with numeric types
 class Application(models.Model):
     _name = 'appserver.application'
     _table = 'application'

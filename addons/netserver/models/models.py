@@ -2,7 +2,6 @@
 from odoo import models, fields, api, _
 
 
-# TODO check all fields in models, because problems may arrive with numeric types
 class Gateway(models.Model):
     _name = 'netserver.gateway'
     _table = 'gateway'
@@ -274,7 +273,6 @@ class DeviceQueue(models.Model):
     f_cnt = fields.Integer(required=True)
     f_port = fields.Integer(required=True)
     is_pending = fields.Boolean(required=True)
-    # TODO emit_at_time_since_gps_epoch must be bigint
     emit_at_time_since_gps_epoch = fields.Integer()
     timeout_after = fields.Datetime(required=True)
 
@@ -288,7 +286,6 @@ class GatewayProfile(models.Model):
     gateway_profile_id = fields.Char()
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
-    # TODO channels must be with type smallint
     channels = fields.Integer(required=True)
 
 
