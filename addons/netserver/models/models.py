@@ -17,7 +17,7 @@ class Gateway(models.Model):
         (
             'gateway_name_key',
             'UNIQUE(name)',
-            _(u'This mac address is aloready used!')
+            _(u'This name address is aloready used!')
         )
     ]
 
