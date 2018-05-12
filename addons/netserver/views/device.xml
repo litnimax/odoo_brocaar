@@ -12,13 +12,13 @@
                         <notebook>
                             <page string="Info">
                                 <group>
-                                    <field name="dev_eui" readonly="1"/>
+                                    <field name="dev_eui"/>
                                     <field name="created_at" readonly="1"/>
                                     <field name="updated_at" readonly="1"/>
                                     <field name="device_profile_id_" readonly="1"/>
-                                    <field name="service_profile_id" readonly="1"/>
-                                    <field name="routing_profile_id" readonly="1"/>
-                                    <field name="skip_fcnt_check" readonly="1"/>
+                                    <field name="service_profile_id_" readonly="1"/>
+                                    <field name="routing_profile_id_" readonly="1"/>
+                                    <field name="skip_fcnt_check"/>
                                 </group>
                             </page>
                         </notebook>

@@ -5,6 +5,7 @@ from odoo import models, fields, api, _
 class Gateway(models.Model):
     _name = 'netserver.gateway'
     _table = 'gateway'
+    _rec_name = 'name'
     _auto = False
     _sql = """ALTER TABLE gateway ADD COLUMN IF NOT EXISTS id INTEGER;
               CREATE SEQUENCE IF NOT EXISTS gateway_id_seq;
@@ -20,13 +21,10 @@ class Gateway(models.Model):
         )
     ]
 
-
     @api.model_cr
     def init(self):
         self.env.cr.execute(self._sql)
 
-
-    # TODO mac sut be primarykey
     mac = fields.Char()
     name = fields.Char(size=100, required=True)
     description = fields.Text()
@@ -34,15 +32,25 @@ class Gateway(models.Model):
     updated_at = fields.Datetime(required=True)
     first_seen_at = fields.Datetime()
     last_seen_at = fields.Datetime()
-    # TODO location field must be point type
     location = fields.Char(required=True)
     altitude = fields.Float(required=True)
     channel_configuration_id = fields.Many2one(required=True,
                                                comodel_name='netserver.channel_configuration',
                                                ondelete='set null')
-    # TODO gateway_profile_id must be defined as indicated below, in migrations file is not specified ondelete rule
-    # gateway_profile_id = fields.Many2one(comodel_name='netserver.gateway_profile')
     gateway_profile_id = fields.Char()
+    gateway_profile_id_ = fields.Many2one(string='Gateway Profile',
+                                         comodel_name='netserver.gateway_profile',
+                                         compute='_get_gateway_profile_id')
+
+    @api.multi
+    def _get_gateway_profile_id(self):
+        for self in self:
+            gateway_profile = self.env['netserver.gateway_profile'].search(
+                [('gateway_profile_id', '=', self.device_profile_id)])
+            if gateway_profile:
+                self.gateway_profile_id_ = gateway_profile.id
+            else:
+                self.gateway_profile_id_ = False
 
 
 class GatewayStats(models.Model):
@@ -50,9 +58,12 @@ class GatewayStats(models.Model):
     _table = 'gateway_stats'
     _auto = False
 
-    # TODO mac must be defined as indicated below
-    # mac = fields.Many2one(required=True, comodel_name='netserver.gateway', ondelete='cascade')
     mac = fields.Char()
+    mac_ = fields.Many2one(required=True,
+                           string='Gateway Profile',
+                           comodel_name='netserver.gateway',
+                           compute='_get_mac',
+                           ondelete='cascade')
     timestamp = fields.Datetime(required=True)
     interval = fields.Char(size=10, required=True)
     rx_packets_received = fields.Integer(required=True)
@@ -72,6 +83,16 @@ class GatewayStats(models.Model):
          "The interval must be unique"),
     ]
 
+    @api.multi
+    def _get_mac(self):
+        for self in self:
+            mac = self.env['netserver.gateway'].search(
+                [('mac', '=', self.mac)])
+            if mac:
+                self.mac_ = mac.id
+            else:
+                self.mac_ = False
+
 
 class FrameLog(models.Model):
     _name = 'netserver.frame_log'
@@ -79,8 +100,7 @@ class FrameLog(models.Model):
     _auto = False
 
     created_at = fields.Datetime(required=True)
-    dev_eui = fields.Binary(required=True)
-    # TODO rx_info_set and tx_info must have jsonb type
+    dev_eui = fields.Char(required=True)
     rx_info_set = fields.Text()
     tx_info = fields.Text()
     phy_payload = fields.Binary(required=True)
@@ -117,6 +137,7 @@ class ExtraChannel(models.Model):
 class DeviceProfile(models.Model):
     _name = 'netserver.device_profile'
     _table = 'device_profile'
+    _rec_name = 'device_profile_id'
     _auto = False
     _sql = """ALTER TABLE device_profile ADD COLUMN IF NOT EXISTS id INTEGER;
               CREATE SEQUENCE IF NOT EXISTS device_profile_id_seq;
@@ -127,11 +148,9 @@ class DeviceProfile(models.Model):
     @api.model_cr
     def init(self):
         self.env.cr.execute(self._sql)
-    
 
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
-    # TODO device_profile_id must be primary key with uuid type
     device_profile_id = fields.Char()
     supports_class_b = fields.Boolean(required=True)
     class_b_timeout = fields.Integer(required=True)
@@ -157,11 +176,20 @@ class DeviceProfile(models.Model):
 class ServiceProfile(models.Model):
     _name = 'netserver.service_profile'
     _table = 'service_profile'
+    _rec_name = 'service_profile_id'
     _auto = False
+    _sql = """ALTER TABLE service_profile ADD COLUMN IF NOT EXISTS id INTEGER;
+              CREATE SEQUENCE IF NOT EXISTS service_profile_id_seq;
+              ALTER TABLE service_profile ALTER COLUMN id SET DEFAULT nextval('service_profile_id_seq');
+              UPDATE service_profile SET id = nextval('service_profile_id_seq');
+    """
+
+    @api.model_cr
+    def init(self):
+        self.env.cr.execute(self._sql)
 
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
-    # TODO device_profile_id must be primary key with uuid type
     service_profile_id = fields.Char()
     ul_rate = fields.Integer(required=True)
     ul_bucket_size = fields.Integer(required=True)
@@ -187,11 +215,20 @@ class ServiceProfile(models.Model):
 class RoutingProfile(models.Model):
     _name = 'netserver.routing_profile'
     _table = 'routing_profile'
+    _rec_name = 'routing_profile_id'
     _auto = False
+    _sql = """ALTER TABLE routing_profile ADD COLUMN IF NOT EXISTS id INTEGER;
+              CREATE SEQUENCE IF NOT EXISTS routing_profile_id_seq;
+              ALTER TABLE routing_profile ALTER COLUMN id SET DEFAULT nextval('routing_profile_id_seq');
+              UPDATE routing_profile SET id = nextval('routing_profile_id_seq');
+    """
+
+    @api.model_cr
+    def init(self):
+        self.env.cr.execute(self._sql)
 
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
-    # TODO routing_profile_id must be primary key with uuid type
     routing_profile_id = fields.Char()
     as_id = fields.Char(size=255)
     ca_cert = fields.Text(required=True, default='')
@@ -202,6 +239,7 @@ class RoutingProfile(models.Model):
 class Device(models.Model):
     _name = 'netserver.device'
     _table = 'device'
+    _rec_name = 'dev_eui'
     _auto = False
     _sql = """ALTER TABLE device ADD COLUMN IF NOT EXISTS id INTEGER;
               CREATE SEQUENCE IF NOT EXISTS device_id_seq;
@@ -213,24 +251,48 @@ class Device(models.Model):
     def init(self):
         self.env.cr.execute(self._sql)
 
-
-    # TODO dev_eui must be primary key
     dev_eui = fields.Char()
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
-    # TODO device_profile_id, service_profile_id, routing_profile_id must be defined as indicated below
-    # device_profile_id = fields.Many2one(required=True, comodel_name='netserver.device_profile', ondelete='cascade')
-    # service_profile_id = fields.Many2one(required=True, comodel_name='netserver.service_profile', ondelete='cascade')
-    # routing_profile_id = fields.Many2one(required=True, comodel_name='netserver.routing_profile', ondelete='cascade')
+    service_profile_id = fields.Char()
+    service_profile_id_ = fields.Many2one(required=True,
+                                          string='Service Profile',
+                                          comodel_name='netserver.service_profile',
+                                          compute='_get_service_profile_id',
+                                          ondelete='cascade')
+    routing_profile_id = fields.Char()
+    routing_profile_id_ = fields.Many2one(required=True,
+                                          string='Routing Profile',
+                                          comodel_name='netserver.routing_profile',
+                                          compute='_get_routing_profile_id',
+                                          ondelete='cascade')
     device_profile_id = fields.Char()
-    device_profile_id_ = fields.Many2one(string='Device Profile',
+    device_profile_id_ = fields.Many2one(required=True,
+                                         string='Device Profile',
                                          comodel_name='netserver.device_profile',
                                          compute='_get_device_profile_id',
                                          ondelete='cascade')
-    service_profile_id = fields.Char()
-    routing_profile_id = fields.Char()
     skip_fcnt_check = fields.Boolean(required=True, default=False)
 
+    @api.multi
+    def _get_service_profile_id(self):
+        for self in self:
+            service_profile = self.env['netserver.service_profile'].search(
+                [('service_profile_id', '=', self.service_profile_id)])
+            if service_profile:
+                self.service_profile_id_ = service_profile.id
+            else:
+                self.service_profile_id_ = False
+
+    @api.multi
+    def _get_routing_profile_id(self):
+        for self in self:
+            routing_profile = self.env['netserver.routing_profile'].search(
+                [('routing_profile_id', '=', self.routing_profile_id)])
+            if routing_profile:
+                self.routing_profile_id_ = routing_profile.id
+            else:
+                self.routing_profile_id_ = False
 
     @api.multi
     def _get_device_profile_id(self):
@@ -249,13 +311,26 @@ class DeviceActivation(models.Model):
     _auto = False
 
     created_at = fields.Datetime(required=True)
-    # TODO dev_eui must bedefined as indicated below
-    # dev_eui = fields.Many2one(required=True, comodel_name='netserver.device', ondelete='cascade')
     dev_eui = fields.Char()
+    dev_eui_ = fields.Many2one(required=True,
+                               string='Device EUI',
+                               comodel_name='netserver.device',
+                               compute='_get_dev_eui',
+                               ondelete='cascade')
     dev_addr = fields.Binary(required=True)
     nwk_s_key = fields.Binary(required=True)
     join_eui = fields.Binary(required=True)
     dev_nonce = fields.Binary(required=True)
+
+    @api.multi
+    def _get_dev_eui(self):
+        for self in self:
+            dev_eui = self.env['netserver.device'].search(
+                [('dev_eui', '=', self.dev_eui)])
+            if dev_eui:
+                self.dev_eui_ = dev_eui.id
+            else:
+                self.dev_eui_ = False
 
 
 class DeviceQueue(models.Model):
@@ -265,9 +340,12 @@ class DeviceQueue(models.Model):
 
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
-    # TODO dev_eui must be defined as indicated below
-    # dev_eui = fields.Many2one(comodel_name='netserver.device', ondelete='cascade')
     dev_eui = fields.Char()
+    dev_eui_ = fields.Many2one(required=True,
+                               string='Device EUI',
+                               comodel_name='netserver.device',
+                               compute='_get_dev_eui',
+                               ondelete='cascade')
     confirmed = fields.Boolean(required=True)
     frm_payload = fields.Char()
     f_cnt = fields.Integer(required=True)
@@ -276,17 +354,36 @@ class DeviceQueue(models.Model):
     emit_at_time_since_gps_epoch = fields.Integer()
     timeout_after = fields.Datetime(required=True)
 
+    @api.multi
+    def _get_dev_eui(self):
+        for self in self:
+            dev_eui = self.env['netserver.device'].search(
+                [('dev_eui', '=', self.dev_eui)])
+            if dev_eui:
+                self.dev_eui_ = dev_eui.id
+            else:
+                self.dev_eui_ = False
+
 
 class GatewayProfile(models.Model):
     _name = 'netserver.gateway_profile'
     _table = 'gateway_profile'
+    _rec_name = 'gateway_profile_id'
     _auto = False
+    _sql = """ALTER TABLE gateway_profile ADD COLUMN IF NOT EXISTS id INTEGER;
+              CREATE SEQUENCE IF NOT EXISTS gateway_profile_id_seq;
+              ALTER TABLE gateway_profile ALTER COLUMN id SET DEFAULT nextval('gateway_profile_id_seq');
+              UPDATE gateway_profile SET id = nextval('gateway_profile_id_seq');
+    """
 
-    # TODO gateway_profile_id must be primary key with uuid type
+    @api.model_cr
+    def init(self):
+        self.env.cr.execute(self._sql)
+
     gateway_profile_id = fields.Char()
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
-    channels = fields.Integer(required=True)
+    channels = fields.Text(required=True)
 
 
 class GatewayProfileExtraChannel(models.Model):
@@ -294,12 +391,24 @@ class GatewayProfileExtraChannel(models.Model):
     _table = 'gateway_profile_extra_channel'
     _auto = False
 
-    # TODO gateway_profile_id must be defined as indicated below
-    # gateway_profile_id = fields.Many2one(required=True, comodel_name='netserver.gateway_profile', ondelete='cascade')
     gateway_profile_id = fields.Char()
+    gateway_profile_id_ = fields.Many2one(required=True,
+                                          string='Gateway Profile',
+                                          comodel_name='netserver.gateway_profile',
+                                          compute='_get_gateway_profile_id',
+                                          ondelete='cascade')
     modulation = fields.Char(size=10, required=True)
     frequency = fields.Integer(required=True)
     bandwidth = fields.Integer(required=True)
     bitrate = fields.Integer(required=True)
-    # TODO spreading_factors must be array with type smallint
-    spreading_factors = fields.Integer()
+    spreading_factors = fields.Text()
+
+    @api.multi
+    def _get_gateway_profile_id(self):
+        for self in self:
+            gateway_profile = self.env['netserver.gateway_profile'].search(
+                [('gateway_profile_id', '=', self.device_profile_id)])
+            if gateway_profile:
+                self.gateway_profile_id_ = gateway_profile.id
+            else:
+                self.gateway_profile_id_ = False
