@@ -11,6 +11,9 @@ class Application(models.Model):
     description = fields.Text(required=True)
     # TODO device_profile_id must be defined as indicated below and must have uuid type
     # service_profile_id = fields.Many2one(comodel_name='appserver.service_profile')
+    service_profile_id_ = fields.Many2one('appserver.service_profile',
+                                          compute='_get_service_profile',
+                                          inverse='_set_service_profile')
     service_profile_id = fields.Char()
     payload_codec = fields.Text(required=True, default='')
     payload_encoder_script = fields.Text(required=True, default='')
@@ -25,6 +28,30 @@ class Application(models.Model):
          'UNIQUE(organization_id)',
          "The organization_id must be unique"),
     ]
+
+
+    @api.multi
+    def _get_service_profile(self):
+        for self in self:
+            sp = self.env['appserver.service_profile'].search([
+                ('service_profile_id','=', self.service_profile_id)])
+            if sp:
+                self.service_profile_id_ = sp[0].id
+            else:
+                self.service_profile_id_ = False
+
+
+    @api.multi
+    def _set_service_profile(self):
+        for self in self:
+            sp = self.env['appserver.service_profile'].search([
+                ('id','=', self.service_profile_id_.id)])
+            if sp:
+                self.service_profile_id = sp[0].service_profile_id
+            else:
+                self.service_profile_id = False
+
+
 
 class Node(models.Model):
     _name = 'appserver.node'
@@ -242,6 +269,17 @@ class ServiceProfile(models.Model):
     _name = 'appserver.service_profile'
     _table = 'service_profile'
     _auto = False
+    _sql = """ALTER TABLE service_profile ADD COLUMN IF NOT EXISTS id INTEGER;
+              CREATE SEQUENCE IF NOT EXISTS service_profile_id_seq;
+              ALTER TABLE service_profile ALTER COLUMN id SET DEFAULT nextval('service_profile_id_seq');
+              UPDATE service_profile SET id = nextval('service_profile_id_seq');
+    """
+
+
+    @api.model_cr
+    def init(self):
+        self.env.cr.execute(self._sql)
+
 
     # TODO service_profile_id must be primary key with uuid type
     service_profile_id = fields.Char()

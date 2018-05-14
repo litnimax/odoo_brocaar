@@ -12,12 +12,12 @@
                         <notebook>
                             <page string="Info">
                                 <group>
-                                    <field name="name" readonly="1"/>
-                                    <field name="service_profile_id" readonly="1"/>
-                                    <field name="organization_id" readonly="1"/>
-                                    <field name="network_server_id" readonly="1"/>
-                                    <field name="created_at" readonly="1"/>
-                                    <field name="updated_at" readonly="1"/>
+                                    <field name="name"/>
+                                    <field name="service_profile_id"/>                                    
+                                    <field name="organization_id"/>
+                                    <field name="network_server_id"/>
+                                    <field name="created_at"/>
+                                    <field name="updated_at"/>
                                 </group>
                             </page>
                         </notebook>
