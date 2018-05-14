@@ -51,13 +51,12 @@ services:
       - 8069:8069
     environment:
       - HOST=postgresql
-      - USER=loraserver_as
-      - PASSWORD=loraserver_as
+      - USER=loraserver
+      - PASSWORD=loraserver
     volumes:
       - "./addons/appserver/:/mnt/extra-addons/appserver/"
-    command: ["odoo", "--workers=0", "--db-filter=loraserver_as", "-u", "appserver",
-            "--database=loraserver_as", "--log-level=debug"]
-
+    command: ["odoo", "--workers=0", "--db-filter=loraserver_as", "-u", "appserver", "--database=loraserver_as", "--log-level=info"]
+    #command: ["odoo", "--workers=0", "--db-filter=loraserver_as", "--database=loraserver_as", "--log-level=info"]
   odoo_ns:
     build:
       context: .
@@ -69,10 +68,10 @@ services:
       - 8070:8069
     environment:
       - HOST=postgresql
-      - USER=loraserver_ns
-      - PASSWORD=loraserver_ns
+      - USER=loraserver
+      - PASSWORD=loraserver
     volumes:
       - "./addons/netserver/:/mnt/extra-addons/netserver/"
     command: ["odoo", "--workers=0", "--db-filter=loraserver_ns", "-u", "netserver",
-            "--database=loraserver_ns", "--log-level=debug"]
+            "--database=loraserver_ns", "--log-level=info"]
 

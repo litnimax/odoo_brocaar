@@ -10,6 +10,7 @@ class Gateway(models.Model):
     _sql = """ALTER TABLE gateway ADD COLUMN IF NOT EXISTS id INTEGER;
               CREATE SEQUENCE IF NOT EXISTS gateway_id_seq;
               ALTER TABLE gateway ALTER COLUMN id SET DEFAULT nextval('gateway_id_seq');
+              ALTER SEQUENCE gateway_id_seq OWNER TO loraserver; 
               UPDATE gateway SET id = nextval('gateway_id_seq');
     """
 
