@@ -13,11 +13,9 @@
                             <page string="Info">
                                 <group>
                                     <field name="name"/>
-                                    <field name="service_profile_id"/>                                    
+                                    <field name="service_profile_id" class="oe_read_only"/>
                                     <field name="organization_id"/>
                                     <field name="network_server_id"/>
-                                    <field name="created_at"/>
-                                    <field name="updated_at"/>
                                 </group>
                             </page>
                         </notebook>

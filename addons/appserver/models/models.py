@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api, _
+import uuid
 
 
 class Application(models.Model):
@@ -345,13 +346,25 @@ class ServiceProfile(models.Model):
     def init(self):
         self.env.cr.execute(self._sql)
 
-    service_profile_id = fields.Char()
+    service_profile_id = fields.Char(string='Service Profile ID', default=uuid.uuid4)
     organization_id = fields.Many2one(string='Organization', required=True, comodel_name='appserver.organization')
     network_server_id = fields.Many2one(string='Network Server', required=True, comodel_name='appserver.network_server')
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
     name = fields.Char(size=100, required=True)
 
+    @api.model
+    def create(self, vals):
+        vals['created_at'] = fields.Datetime.now()
+        vals['updated_at'] = fields.Datetime.now()
+        created = super(ServiceProfile, self).create(vals)
+        return created
+
+    @api.multi
+    def write(self, vals):
+        vals['updated_at'] = fields.Datetime.now()
+        updated = super(ServiceProfile, self).write(vals)
+        return updated
 
 class DeviceProfile(models.Model):
     _name = 'appserver.device_profile'
