@@ -12,7 +12,7 @@ class Application(models.Model):
     description = fields.Text(required=True)
     service_profile_id = fields.Char()
     service_profile_id_ = fields.Many2one(string='Service Profile', comodel_name='appserver.service_profile',
-                                          compute='_get_service_profile_id')
+                                          compute='_get_service_profile_id', inverse='_set_service_profile')
     payload_codec = fields.Text(required=True, default='')
     payload_encoder_script = fields.Text(required=True, default='')
     payload_decoder_script = fields.Text(required=True, default='')
@@ -34,9 +34,19 @@ class Application(models.Model):
             service_profile = self.env['appserver.service_profile'].search(
                 [('service_profile_id', '=', self.service_profile_id)])
             if service_profile:
-                self.service_profile_id_ = service_profile.id
+                self.service_profile_id_ = service_profile[0].id
             else:
                 self.service_profile_id_ = False
+
+    @api.multi
+    def _set_service_profile(self):
+        for self in self:
+            sp = self.env['appserver.service_profile'].search([
+                ('id','=', self.service_profile_id_.id)])
+            if sp:
+                self.service_profile_id = sp[0].service_profile_id
+            else:
+                self.service_profile_id = False
 
 
 class Node(models.Model):
@@ -325,6 +335,7 @@ class ServiceProfile(models.Model):
     _name = 'appserver.service_profile'
     _table = 'service_profile'
     _auto = False
+<<<<<<< HEAD
     _rec_name = 'name'
     _sql = """ALTER TABLE gateway ADD COLUMN IF NOT EXISTS id INTEGER;
               CREATE SEQUENCE IF NOT EXISTS gateway_id_seq;
@@ -335,6 +346,19 @@ class ServiceProfile(models.Model):
     @api.model_cr
     def init(self):
         self.env.cr.execute(self._sql)
+=======
+    _sql = """ALTER TABLE service_profile ADD COLUMN IF NOT EXISTS id INTEGER;
+              CREATE SEQUENCE IF NOT EXISTS service_profile_id_seq;
+              ALTER TABLE service_profile ALTER COLUMN id SET DEFAULT nextval('service_profile_id_seq');
+              UPDATE service_profile SET id = nextval('service_profile_id_seq');
+    """
+
+
+    @api.model_cr
+    def init(self):
+        self.env.cr.execute(self._sql)
+
+>>>>>>> 455097c3c35de7bbc0354bc86c4d03f4e75598a8
 
     # TODO service_profile_id must be primary key with uuid type
     service_profile_id = fields.Char()

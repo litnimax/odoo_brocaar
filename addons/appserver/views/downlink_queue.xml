@@ -3,7 +3,7 @@
         <!--Downlink Queue-->
 
         <!--Downlink Queue form view-->
-        <record model="ir.ui.view" id="application_form_view">
+        <record model="ir.ui.view" id="downlink_queue_form_view">
             <field name="name">downlink_queue.form</field>
             <field name="model">appserver.downlink_queue</field>
             <field name="arch" type="xml">

@@ -12,13 +12,16 @@
                         <notebook>
                             <page string="Info">
                                 <group>
-                                    <field name="name" readonly="1"/>
-                                    <field name="description" readonly="1"/>
-                                    <field name="service_profile_id" readonly="1"/>
-                                    <field name="payload_codec" readonly="1"/>
-                                    <field name="payload_encoder_script" readonly="1"/>
-                                    <field name="payload_decoder_script" readonly="1"/>
-                                    <field name="organization_id" readonly="1"/>
+                                    <group>
+                                        <field name="name"/>
+                                        <field name="description"/>
+                                        <field name="service_profile_id_"
+                                            options="{'no_quick_create': True, 'no_create_edit' : True}"/>
+                                        <field name="payload_codec"/>
+                                        <field name="payload_encoder_script"/>
+                                        <field name="payload_decoder_script"/>
+                                        <field name="organization_id"/>
+                                    </group>
                                 </group>
                             </page>
                         </notebook>
@@ -59,7 +62,7 @@
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
-                    Create the first application
+                    Create the first Application
                 </p>
             </field>
         </record>
