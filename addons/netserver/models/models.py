@@ -34,12 +34,10 @@ class Gateway(models.Model):
     last_seen_at = fields.Datetime()
     location = fields.Char(required=True)
     altitude = fields.Float(required=True)
-    channel_configuration_id = fields.Many2one(required=True,
-                                               comodel_name='netserver.channel_configuration',
-                                               ondelete='set null')
+    channel_configuration_id = fields.Many2one(string='Channel Configuration', required=True,
+                                               comodel_name='netserver.channel_configuration', ondelete='set null')
     gateway_profile_id = fields.Char()
-    gateway_profile_id_ = fields.Many2one(string='Gateway Profile',
-                                          comodel_name='netserver.gateway_profile',
+    gateway_profile_id_ = fields.Many2one(string='Gateway Profile', comodel_name='netserver.gateway_profile',
                                           compute='_get_gateway_profile_id')
 
     @api.multi
@@ -59,11 +57,8 @@ class GatewayStats(models.Model):
     _auto = False
 
     mac = fields.Char()
-    mac_ = fields.Many2one(required=True,
-                           string='Gateway Profile',
-                           comodel_name='netserver.gateway',
-                           compute='_get_gateway_id',
-                           ondelete='cascade')
+    mac_ = fields.Many2one(string='Gateway', required=True, comodel_name='netserver.gateway',
+                           ondelete='cascade', compute='_get_gateway_id')
     timestamp = fields.Datetime(required=True)
     interval = fields.Char(size=10, required=True)
     rx_packets_received = fields.Integer(required=True)
@@ -74,13 +69,13 @@ class GatewayStats(models.Model):
     _sql_constraints = [
         ('mac_unique',
          'UNIQUE(mac)',
-         "The mac must be unique"),
+         _(u'The mac must be unique')),
         ('timestamp_unique',
          'UNIQUE(timestamp)',
-         "The timestamp must be unique"),
+         _(u'The timestamp must be unique')),
         ('interval_unique',
          'UNIQUE(interval)',
-         "The interval must be unique"),
+         _(u'The interval must be unique')),
     ]
 
     @api.multi
@@ -110,6 +105,7 @@ class ChannelConfiguration(models.Model):
     _name = 'netserver.channel_configuration'
     _table = 'channel_configuration'
     _auto = False
+    _rec_name = 'name'
 
     name = fields.Char(size=100, required=True)
     created_at = fields.Datetime(required=True)
@@ -123,8 +119,8 @@ class ExtraChannel(models.Model):
     _table = 'extra_channel'
     _auto = False
 
-    channel_configuration_id = fields.Many2one(required=True, comodel_name='netserver.channel_configuration',
-                                               ondelete='cascade')
+    channel_configuration_id = fields.Many2one(string='Channel Configuration', required=True,
+                                               comodel_name='netserver.channel_configuration', ondelete='cascade')
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
     modulation = fields.Char(size=10, required=True)
@@ -255,23 +251,17 @@ class Device(models.Model):
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
     service_profile_id = fields.Char()
-    service_profile_id_ = fields.Many2one(required=True,
-                                          string='Service Profile',
-                                          comodel_name='netserver.service_profile',
-                                          compute='_get_service_profile_id',
-                                          ondelete='cascade')
+    service_profile_id_ = fields.Many2one(string='Service Profile', required=True,
+                                          comodel_name='netserver.service_profile', ondelete='cascade',
+                                          compute='_get_service_profile_id')
     routing_profile_id = fields.Char()
-    routing_profile_id_ = fields.Many2one(required=True,
-                                          string='Routing Profile',
-                                          comodel_name='netserver.routing_profile',
-                                          compute='_get_routing_profile_id',
-                                          ondelete='cascade')
+    routing_profile_id_ = fields.Many2one(string='Routing Profile', required=True,
+                                          comodel_name='netserver.routing_profile', ondelete='cascade',
+                                          compute='_get_routing_profile_id')
     device_profile_id = fields.Char()
-    device_profile_id_ = fields.Many2one(required=True,
-                                         string='Device Profile',
-                                         comodel_name='netserver.device_profile',
-                                         compute='_get_device_profile_id',
-                                         ondelete='cascade')
+    device_profile_id_ = fields.Many2one(string='Device Profile', required=True,
+                                         comodel_name='netserver.device_profile', ondelete='cascade',
+                                         compute='_get_device_profile_id')
     skip_fcnt_check = fields.Boolean(required=True, default=False)
 
     @api.multi
@@ -312,11 +302,8 @@ class DeviceActivation(models.Model):
 
     created_at = fields.Datetime(required=True)
     dev_eui = fields.Char()
-    dev_eui_ = fields.Many2one(required=True,
-                               string='Device EUI',
-                               comodel_name='netserver.device',
-                               compute='_get_device_id',
-                               ondelete='cascade')
+    dev_eui_ = fields.Many2one(string='Device', required=True, comodel_name='netserver.device', ondelete='cascade',
+                               compute='_get_device_id')
     dev_addr = fields.Binary(required=True)
     nwk_s_key = fields.Binary(required=True)
     join_eui = fields.Binary(required=True)
@@ -341,11 +328,8 @@ class DeviceQueue(models.Model):
     created_at = fields.Datetime(required=True)
     updated_at = fields.Datetime(required=True)
     dev_eui = fields.Char()
-    dev_eui_ = fields.Many2one(required=True,
-                               string='Device EUI',
-                               comodel_name='netserver.device',
-                               compute='_get_device_id',
-                               ondelete='cascade')
+    dev_eui_ = fields.Many2one(string='Device', required=True, comodel_name='netserver.device', ondelete='cascade',
+                               compute='_get_device_id')
     confirmed = fields.Boolean(required=True)
     frm_payload = fields.Char()
     f_cnt = fields.Integer(required=True)
@@ -392,11 +376,9 @@ class GatewayProfileExtraChannel(models.Model):
     _auto = False
 
     gateway_profile_id = fields.Char()
-    gateway_profile_id_ = fields.Many2one(required=True,
-                                          string='Gateway Profile',
-                                          comodel_name='netserver.gateway_profile',
-                                          compute='_get_gateway_profile_id',
-                                          ondelete='cascade')
+    gateway_profile_id_ = fields.Many2one(string='Gateway Profile', required=True,
+                                          comodel_name='netserver.gateway_profile', ondelete='cascade',
+                                          compute='_get_gateway_profile_id')
     modulation = fields.Char(size=10, required=True)
     frequency = fields.Integer(required=True)
     bandwidth = fields.Integer(required=True)
