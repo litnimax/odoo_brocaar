@@ -335,32 +335,16 @@ class ServiceProfile(models.Model):
     _name = 'appserver.service_profile'
     _table = 'service_profile'
     _auto = False
-<<<<<<< HEAD
-    _rec_name = 'name'
-    _sql = """ALTER TABLE gateway ADD COLUMN IF NOT EXISTS id INTEGER;
-              CREATE SEQUENCE IF NOT EXISTS gateway_id_seq;
-              ALTER TABLE gateway ALTER COLUMN id SET DEFAULT nextval('gateway_id_seq');
-              UPDATE gateway SET id = nextval('gateway_id_seq');
-    """
-
-    @api.model_cr
-    def init(self):
-        self.env.cr.execute(self._sql)
-=======
     _sql = """ALTER TABLE service_profile ADD COLUMN IF NOT EXISTS id INTEGER;
               CREATE SEQUENCE IF NOT EXISTS service_profile_id_seq;
               ALTER TABLE service_profile ALTER COLUMN id SET DEFAULT nextval('service_profile_id_seq');
               UPDATE service_profile SET id = nextval('service_profile_id_seq');
     """
 
-
     @api.model_cr
     def init(self):
         self.env.cr.execute(self._sql)
 
->>>>>>> 455097c3c35de7bbc0354bc86c4d03f4e75598a8
-
-    # TODO service_profile_id must be primary key with uuid type
     service_profile_id = fields.Char()
     organization_id = fields.Many2one(string='Organization', required=True, comodel_name='appserver.organization')
     network_server_id = fields.Many2one(string='Network Server', required=True, comodel_name='appserver.network_server')
