@@ -39,8 +39,8 @@ class Gateway(models.Model):
                                                ondelete='set null')
     gateway_profile_id = fields.Char()
     gateway_profile_id_ = fields.Many2one(string='Gateway Profile',
-                                         comodel_name='netserver.gateway_profile',
-                                         compute='_get_gateway_profile_id')
+                                          comodel_name='netserver.gateway_profile',
+                                          compute='_get_gateway_profile_id')
 
     @api.multi
     def _get_gateway_profile_id(self):
@@ -62,7 +62,7 @@ class GatewayStats(models.Model):
     mac_ = fields.Many2one(required=True,
                            string='Gateway Profile',
                            comodel_name='netserver.gateway',
-                           compute='_get_mac',
+                           compute='_get_gateway_id',
                            ondelete='cascade')
     timestamp = fields.Datetime(required=True)
     interval = fields.Char(size=10, required=True)
@@ -84,7 +84,7 @@ class GatewayStats(models.Model):
     ]
 
     @api.multi
-    def _get_mac(self):
+    def _get_gateway_id(self):
         for self in self:
             mac = self.env['netserver.gateway'].search(
                 [('mac', '=', self.mac)])
@@ -315,7 +315,7 @@ class DeviceActivation(models.Model):
     dev_eui_ = fields.Many2one(required=True,
                                string='Device EUI',
                                comodel_name='netserver.device',
-                               compute='_get_dev_eui',
+                               compute='_get_device_id',
                                ondelete='cascade')
     dev_addr = fields.Binary(required=True)
     nwk_s_key = fields.Binary(required=True)
@@ -323,7 +323,7 @@ class DeviceActivation(models.Model):
     dev_nonce = fields.Binary(required=True)
 
     @api.multi
-    def _get_dev_eui(self):
+    def _get_device_id(self):
         for self in self:
             dev_eui = self.env['netserver.device'].search(
                 [('dev_eui', '=', self.dev_eui)])
@@ -344,7 +344,7 @@ class DeviceQueue(models.Model):
     dev_eui_ = fields.Many2one(required=True,
                                string='Device EUI',
                                comodel_name='netserver.device',
-                               compute='_get_dev_eui',
+                               compute='_get_device_id',
                                ondelete='cascade')
     confirmed = fields.Boolean(required=True)
     frm_payload = fields.Char()
@@ -355,7 +355,7 @@ class DeviceQueue(models.Model):
     timeout_after = fields.Datetime(required=True)
 
     @api.multi
-    def _get_dev_eui(self):
+    def _get_device_id(self):
         for self in self:
             dev_eui = self.env['netserver.device'].search(
                 [('dev_eui', '=', self.dev_eui)])
