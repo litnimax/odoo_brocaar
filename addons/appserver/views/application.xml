@@ -37,7 +37,8 @@
             <field name="arch" type="xml">
                 <tree string="Application Tree">
                     <field name="name"/>
-                    <field name="service_profile_id"/>
+                    <field name="organization_id"/>
+                    <field name="service_profile_id_"/>
                     <field name="payload_codec"/>
                 </tree>
             </field>

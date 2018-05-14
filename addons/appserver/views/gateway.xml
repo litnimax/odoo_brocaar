@@ -12,13 +12,17 @@
                         <notebook>
                             <page string="Info">
                                 <group>
-                                    <field name="mac" readonly="1"/>
-                                    <field name="name" readonly="1"/>
-                                    <field name="description" readonly="1"/>
-                                    <field name="created_at" readonly="1"/>
-                                    <field name="organization_id" readonly="1"/>
-                                    <field name="ping" readonly="1"/>
-                                    <field name="last_ping_sent_at" readonly="1"/>
+                                    <group>                                    
+                                        <field name="name"/>
+                                        <field name="mac"/>                                    
+                                        <field name="organization_id"/>
+                                        <field name="ping"/>                                        
+                                    </group>
+                                    <group>
+                                        <field name="description"/>
+                                        <field name="created_at"/>
+                                        <field name="last_ping_sent_at"/>
+                                    </group>                                        
                                 </group>
                             </page>
                         </notebook>

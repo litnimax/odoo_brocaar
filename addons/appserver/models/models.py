@@ -256,6 +256,29 @@ class Integration(models.Model):
     ]
 
 
+class GatewayProfile(models.Model):
+    _name = 'appserver.gateway_profile'
+    _table = 'gateway_profile'
+    _auto = False
+    _sql = """ALTER TABLE gateway_profile ADD COLUMN IF NOT EXISTS id INTEGER;
+              CREATE SEQUENCE IF NOT EXISTS gateway_profile_id_seq;
+              ALTER TABLE gateway_profile ALTER COLUMN id SET DEFAULT nextval('gateway_profile_id_seq');
+              UPDATE gateway_profile SET id = nextval('gateway_profile_id_seq');
+    """
+
+    @api.model_cr
+    def init(self):
+        self.env.cr.execute(self._sql)
+
+    name = fields.Char(size=100, required=True)
+    gateway_profile_id = fields.Char()
+    network_server_id = fields.Many2one(string='Network Server', required=True, 
+                                        comodel_name='appserver.network_server')
+    created_at = fields.Datetime(required=True)
+    updated_at = fields.Datetime(required=True)
+    
+
+
 class GatewayPing(models.Model):
     _name = 'appserver.gateway_ping'
     _table = 'gateway_ping'
@@ -346,7 +369,7 @@ class ServiceProfile(models.Model):
     def init(self):
         self.env.cr.execute(self._sql)
 
-    service_profile_id = fields.Char(string='Service Profile ID', default=uuid.uuid4)
+    service_profile_id = fields.Char(string='Service Profile ID', default=lambda x: uuid.uuid4())
     organization_id = fields.Many2one(string='Organization', required=True, comodel_name='appserver.organization')
     network_server_id = fields.Many2one(string='Network Server', required=True, comodel_name='appserver.network_server')
     created_at = fields.Datetime(required=True)
@@ -556,23 +579,3 @@ class DeviceQueueMapping(models.Model):
                 self.dev_eui_ = False
 
 
-class GatewayProfile(models.Model):
-    _name = 'appserver.gateway_profile'
-    _table = 'gateway_profile'
-    _auto = False
-    _rec_name = 'name'
-    _sql = """ALTER TABLE device_activation ADD COLUMN IF NOT EXISTS id INTEGER;
-              CREATE SEQUENCE IF NOT EXISTS device_activation_id_seq;
-              ALTER TABLE device_activation ALTER COLUMN id SET DEFAULT nextval('device_activation_id_seq');
-              UPDATE device_activation SET id = nextval('device_activation_id_seq');
-    """
-
-    @api.model_cr
-    def init(self):
-        self.env.cr.execute(self._sql)
-
-    gateway_profile_id = fields.Char()
-    network_server_id = fields.Many2one(string='Network Server', required=True, comodel_name='appserver.network_server')
-    created_at = fields.Datetime(required=True)
-    updated_at = fields.Datetime(required=True)
-    name = fields.Char(size=100, required=True)
