@@ -10,22 +10,32 @@
                 <form string="Network Server Form">
                     <sheet>
                         <notebook>
-                            <page string="Info">
+                            <page string="General">
                                 <group>
-                                    <field name="name" readonly="1"/>
-                                    <field name="created_at" readonly="1"/>
-                                    <field name="updated_at" readonly="1"/>
-                                    <field name="server" readonly="1"/>
-                                    <field name="ca_cert" readonly="1"/>
-                                    <field name="tls_cert" readonly="1"/>
-                                    <field name="tls_key" readonly="1"/>
-                                    <field name="routing_profile_ca_cert" readonly="1"/>
-                                    <field name="routing_profile_tls_cert" readonly="1"/>
-                                    <field name="routing_profile_tls_key" readonly="1"/>
-                                    <field name="gateway_discovery_enabled" readonly="1"/>
-                                    <field name="gateway_discovery_interval" readonly="1"/>
-                                    <field name="gateway_discovery_tx_frequency" readonly="1"/>
-                                    <field name="gateway_discovery_dr" readonly="1"/>
+                                    <field name="name" string="Network-server name" placeholder="e.g. EU868 network-server"/>
+                                    <field name="server" string="Network-server server" placeholder="e.g. localhost:8000"/>
+                                    <field name="created_at"/>
+                                    <field name="updated_at"/>
+                                </group>
+                            </page>
+                            <page string="Gateway discovery">
+                                <group>
+                                    <field name="gateway_discovery_enabled" string="Enable gateway discovery"/>
+                                    <field name="gateway_discovery_interval" string="Interval (per day)" attrs="{'invisible':[('gateway_discovery_enabled', '=', False)]}"/>
+                                    <field name="gateway_discovery_tx_frequency" string="TX Frequency (Hz)" attrs="{'invisible':[('gateway_discovery_enabled', '=', False)]}"/>
+                                    <field name="gateway_discovery_dr" string="TX data-rate" attrs="{'invisible':[('gateway_discovery_enabled', '=', False)]}"/>
+                                </group>
+                            </page>
+                            <page string="TLS certificates">
+                                <group string="Certificates for LoRa App Server to LoRa Server connection">
+                                    <field name="ca_cert" string="CA certificate"/>
+                                    <field name="tls_cert" string="TLS certificate"/>
+                                    <field name="tls_key" string="TLS key"/>
+                                </group>
+                                <group string="Certificates for LoRa Server to LoRa App Server connection">
+                                    <field name="routing_profile_ca_cert" string="CA certificate"/>
+                                    <field name="routing_profile_tls_cert" string="TLS certificate"/>
+                                    <field name="routing_profile_tls_key" string="TLS key"/>
                                 </group>
                             </page>
                         </notebook>
@@ -42,7 +52,8 @@
                 <tree string="Network Server Tree">
                     <field name="name"/>
                     <field name="server"/>
-                    <field name="gateway_discovery_enabled"/>
+                    <field name="created_at"/>
+                    <field name="updated_at"/>
                 </tree>
             </field>
         </record>
