@@ -7,10 +7,10 @@ class DeviceProfile(models.Model):
     _table = 'device_profile'
     _auto = False
     _rec_name = 'name'
-    _sql = """ALTER TABLE gateway ADD COLUMN IF NOT EXISTS id INTEGER;
-              CREATE SEQUENCE IF NOT EXISTS gateway_id_seq;
-              ALTER TABLE gateway ALTER COLUMN id SET DEFAULT nextval('gateway_id_seq');
-              UPDATE gateway SET id = nextval('gateway_id_seq');
+    _sql = """ALTER TABLE device_profile ADD COLUMN IF NOT EXISTS id INTEGER;
+              CREATE SEQUENCE IF NOT EXISTS device_profile_id_seq;
+              ALTER TABLE device_profile ALTER COLUMN id SET DEFAULT nextval('device_profile_id_seq');
+              UPDATE device_profile SET id = nextval('device_profile_id_seq');
     """
 
     @api.model_cr
