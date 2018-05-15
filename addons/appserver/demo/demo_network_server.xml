@@ -1,0 +1,10 @@
+<odoo>
+    <data>
+        <record id="demo_network_server" model="appserver.network_server">
+            <field name="name">demo_server</field>
+            <field name="server">loraserver:8000</field>
+            <field name="created_at">2018-05-15 14:37:21</field>
+            <field name="updated_at">2018-05-15 14:37:21</field>
+        </record>
+    </data>
+</odoo>
