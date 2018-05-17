@@ -13,7 +13,10 @@ class Application(models.Model):
     service_profile_id = fields.Char()
     service_profile_id_ = fields.Many2one(string='Service Profile', comodel_name='appserver.service_profile',
                                           compute='_get_service_profile_id', inverse='_set_service_profile')
-    payload_codec = fields.Text(required=True, default='')
+    payload_codec = fields.Selection(required=True, selection=[
+        ('', 'None'),
+        ('CAYENNE_LPP', 'Cayenne LPP'),
+        ('CUSTOM_JS', 'Custom JavaScript codec functions')])
     payload_encoder_script = fields.Text(required=True, default='')
     payload_decoder_script = fields.Text(required=True, default='')
     organization_id = fields.Many2one(string='Organization', required=True, comodel_name='appserver.organization',
@@ -42,7 +45,7 @@ class Application(models.Model):
     def _set_service_profile(self):
         for self in self:
             sp = self.env['appserver.service_profile'].search([
-                ('id','=', self.service_profile_id_.id)])
+                ('id', '=', self.service_profile_id_.id)])
             if sp:
                 self.service_profile_id = sp[0].service_profile_id
             else:
