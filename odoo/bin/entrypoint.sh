@@ -9,8 +9,8 @@ wait_postgres.sh
 # and pass them as arguments to the odoo process if not present in the config file
 : ${HOST:=${DB_PORT_5432_TCP_ADDR:='postgresql'}}
 : ${PORT:=${DB_PORT_5432_TCP_PORT:=5432}}
-: ${USER:=${DB_ENV_POSTGRES_USER:=${POSTGRES_USER:='lorawan'}}}
-: ${PASSWORD:=${DB_ENV_POSTGRES_PASSWORD:=${POSTGRES_PASSWORD:='lorawan'}}}
+: ${USER:=${DB_ENV_POSTGRES_USER:=${POSTGRES_USER:='loraserver'}}}
+: ${PASSWORD:=${DB_ENV_POSTGRES_PASSWORD:=${POSTGRES_PASSWORD:='loraserver'}}}
 
 DB_ARGS=()
 function check_config() {

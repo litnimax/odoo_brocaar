@@ -11,7 +11,7 @@ dockerize -timeout 30s -wait tcp://${DB_HOST:-postgresql}:${DB_PORT:-5432}
 # 'createdb: could not connect to database template1: FATAL:  the database system is starting up'
 # we retry if we get this error
 
-while [ "$(PGPASSWORD=${DB_PASSWORD:-lorawan} psql -h ${DB_HOST:-postgresql} -U ${DB_USER:-lorawan} -c '' postgres 2>&1)" = "psql: FATAL:  the database system is starting up" ]
+while [ "$(PGPASSWORD=${DB_PASSWORD:-loraserver} psql -h ${DB_HOST:-postgresql} -U ${DB_USER:-loraserver} -c '' postgres 2>&1)" = "psql: FATAL:  the database system is starting up" ]
 do
   echo "Waiting for the database system to start up"
   sleep 0.1
